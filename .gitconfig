@@ -1,0 +1,11 @@
+[user]
+	name = Long Do
+	email = long.do234@gmail.com
+[core]
+	editor = code --wait
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[github]
+	user = longpdo

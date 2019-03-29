@@ -1,0 +1,10 @@
+{
+    "editor.fontSize": 14,
+    "editor.fontFamily": "FuraCode Nerd Font Mono",
+    "editor.minimap.enabled": false,
+    "editor.fontLigatures": true,
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Dracula",
+    "workbench.iconTheme": "material-icon-theme",
+    "gitlens.defaultDateStyle": "absolute"
+}

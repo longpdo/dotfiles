@@ -5,6 +5,8 @@ export ZSH="/Users/longdo/.oh-my-zsh"
 export JAVA_HOME=`/usr/libexec/java_home`
 eval $(thefuck --alias)
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH=$(cd $HOME/.gem/ruby/*/bin; pwd):$PATH
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel9k/powerlevel9k"
@@ -38,8 +40,3 @@ fi
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} $user_symbol%{%b%f%k%F{yellow}%} %{%f%}"
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=’red’
-
-
-
-
-
