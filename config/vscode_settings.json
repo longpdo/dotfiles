@@ -6,5 +6,6 @@
     "window.zoomLevel": 0,
     "workbench.colorTheme": "Dracula",
     "workbench.iconTheme": "material-icon-theme",
-    "gitlens.defaultDateStyle": "absolute"
+    "gitlens.defaultDateStyle": "absolute",
+    "git.autofetch": true
 }

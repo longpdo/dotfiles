@@ -1,6 +1,14 @@
 [user]
 	name = Long Do
 	email = long.do234@gmail.com
+[color]
+	diff = auto
+	status = auto
+  	branch = auto
+[color "status"]
+  	changed = yellow
+  	added = green
+  	untracked = red
 [core]
 	editor = code --wait
 [diff]
