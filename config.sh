@@ -129,18 +129,19 @@ ln -s ~/dotfiles/config/vscode_settings.json ~/Library/Application\ Support/Code
 
 running "Installing preferred VS Code extensions"
 CODE_EXTENSIONS=(
-  PKief.material-icon-theme
+  # THEMES
   dracula-theme.theme-dracula
-  #
+  PKief.material-icon-theme
+  # FORMATTING
+  CoenraadS.bracket-pair-colorizer
   formulahendry.auto-close-tag
   formulahendry.auto-rename-tag
-  CoenraadS.bracket-pair-colorizer
   Gruntfuggly.todo-tree
-  #
-  formulahendry.code-runner
-  eamodio.gitlens
-  christian-kohler.path-intellisense
+  # PRODUCTIVITY
   alefragnani.project-manager
+  christian-kohler.path-intellisense
+  eamodio.gitlens
+  formulahendry.code-runner
 )
 for ext in "$CODE_EXNTENSIONS"; do
   install_code "$ext"
