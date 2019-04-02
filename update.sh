@@ -45,11 +45,10 @@ else
   ok "already installed"
 fi
 
-action "Updating homebrew..."
-brew update; ok
-
-action "Upgrading brew packages..."
-brew upgrade; ok
+action "Updating homebrew and packages..."
+brew update
+brew upgrade
+ok
 
 action "Upgrading brew cask packages..."
 brew cask outdated

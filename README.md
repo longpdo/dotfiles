@@ -8,6 +8,7 @@
 - Never deactivate monitor if plugged in
 - Requiring password immediately after sleep begins (defaults write does not work since macOS 10.13.4)
 - Battery Monitor settings
+- Finder: remove (recently used, icloud, tags, cds, bonjour-computer) from the sidebar
 
 ## Work related changes
 
@@ -25,6 +26,7 @@
 - [Auto Close Tag](https://github.com/formulahendry/vscode-auto-close-tag)
 - [Auto Rename Tag](https://github.com/formulahendry/vscode-auto-rename-tag)
 - [Bracket Pair Colorizer](https://github.com/CoenraadS/BracketPair)
+- [Prettier](https://github.com/prettier/prettier-vscode)
 - [Todo Tree](https://github.com/Gruntfuggly/todo-tree)
 
 ### PRODUCTIVITY
@@ -34,7 +36,8 @@
 - [Path Intellisense](https://github.com/ChristianKohler/PathIntellisense)
 - [Project Manager](https://github.com/alefragnani/vscode-project-manager)
 
-## TODO
+## IDEAS
 
-- add aliases (like starting update.sh)
-- improve README
+- TODO add aliases (like starting update.sh)
+- TODO improve README
+- TODO Chrome setup (check for recommended extensions and userscripts - no coding necessary), maybe change the update rate of the chrome default folder - uses a lot of update rates while normally browsing
