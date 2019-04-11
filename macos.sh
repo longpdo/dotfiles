@@ -5,11 +5,29 @@
 # Include library helper for colorized echo
 source ./library/helper_echo.sh
 
+###############################################################################
+# Prompt user input                                                           #
+###############################################################################
+
 # Ask for the administrator password upfront
 sudo -v
 
 # Keep-alive: update existing sudo time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+bot "These first changes request your input... \n"
+
+read -r -p "Do you want to change your computer and host name? [y|N] " response
+if [[ $response =~ (yes|y|Y) ]];then
+		read -r -p "Localhost: change $(sudo scutil --get LocalHostName) to: " localHostName
+		sudo scutil --set LocalHostName $localHostName
+		ok
+		read -r -p "Computer: change $(sudo scutil --get ComputerName) to: " computerName
+		sudo scutil --set ComputerName $computerName
+		ok
+else
+    ok "skipped";
+fi
 
 action "Closing any open System Preferences panes..."
 osascript -e 'tell application "System Preferences" to quit'
