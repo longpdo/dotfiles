@@ -72,9 +72,13 @@ defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/dotfiles/config"
 ok
 
+running "Backing up current misc.zsh and symlinking preferred misc.zsh"
+mv ~/.oh-my-zsh/lib/misc.zsh ~/.oh-my-zsh/lib/misc.zsh.bak
+ln -s ~/dotfiles/config/custom_misc.zsh ~/.oh-my-zsh/lib/misc.zsh
+ok
+
 running "Installing color theme for iTerm (opening file)"
 open "./themes/Dracula.itermcolors"; ok
-#open "./themes/Tomorrow Night.itermcolors"; ok
 
 ###############################################################################
 # mongoDB                                                                     #

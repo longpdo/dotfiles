@@ -480,15 +480,17 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>-1056 416 1001 403 -1080 -339 1080 1897 </string>
+	<string>133 251 1001 269 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>410 363 620 392 0 0 1440 877 </string>
+	<string>970 768 620 392 0 0 2560 1417 </string>
+	<key>NSWindow Frame SessionsPreferences</key>
+	<string>903 351 606 469 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>-957 643 796 486 -1080 -339 1080 1897 </string>
+	<string>2951 495 796 486 2560 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1080 -338 1080 947 -1080 -339 1080 1897 </string>
+	<string>0 0 1440 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2562 0 849 1417 2560 0 2560 1417 </string>
+	<string>1282 0 1275 1417 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -749,6 +751,8 @@
 			<real>1</real>
 			<key>Idle Code</key>
 			<integer>0</integer>
+			<key>Initial Text</key>
+			<string></string>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -1273,6 +1277,12 @@
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>573383873.65717101</real>
+	<key>OpenArrangementAtStartup</key>
+	<false/>
+	<key>OpenNoWindowsAtStartup</key>
+	<false/>
+	<key>OpenTmuxWindowsIn</key>
+	<integer>2</integer>
 	<key>PinchToChangeFontSizeDisabled</key>
 	<true/>
 	<key>PointerActions</key>
@@ -1321,9 +1331,23 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-03-29T07:21:18Z</date>
+	<date>2019-04-11T11:09:04Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>ShowFullScreenTabBar</key>
+	<false/>
+	<key>SmartPlacement</key>
+	<true/>
+	<key>SwitchPaneModifier</key>
+	<integer>6</integer>
+	<key>SwitchWindowModifier</key>
+	<integer>9</integer>
+	<key>UseBorder</key>
+	<false/>
+	<key>UseVirtualKeyCodesForDetectingDigits</key>
+	<false/>
+	<key>Window Arrangements</key>
+	<dict/>
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
