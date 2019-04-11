@@ -74,7 +74,6 @@ ok
 
 running "Installing color theme for iTerm (opening file)"
 open "./themes/Dracula.itermcolors"; ok
-#open "./themes/Tomorrow Night.itermcolors"; ok
 
 ###############################################################################
 # mongoDB                                                                     #
