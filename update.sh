@@ -69,5 +69,7 @@ if test $(which gem); then
 fi
 
 action "Cleaning up..."
-gem cleanup
 brew cleanup
+gem cleanup
+# Recursively delete `.DS_Store` files
+find . -type f -name '*.DS_Store' -ls -delete
