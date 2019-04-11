@@ -72,6 +72,10 @@ defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/dotfiles/config"
 ok
 
+#WARN This could break after zsh updates
+running "Avoiding global globurl alias of url-quote-magic"
+sudo cp ~/dotfiles/config/zsh_url-quote-magic /usr/share/zsh/5.3/functions/url-quote-magic
+
 running "Installing color theme for iTerm (opening file)"
 open "./themes/Dracula.itermcolors"; ok
 
