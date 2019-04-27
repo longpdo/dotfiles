@@ -19,11 +19,22 @@ bot "These first changes request your input... \n"
 
 read -r -p "Do you want to change your computer and host name? [y|N] " response
 if [[ $response =~ (yes|y|Y) ]];then
+		read -r -p "Computer: change $(sudo scutil --get ComputerName) to: " computerName
+		sudo scutil --set ComputerName $computerName
+		ok
 		read -r -p "Localhost: change $(sudo scutil --get LocalHostName) to: " localHostName
 		sudo scutil --set LocalHostName $localHostName
 		ok
-		read -r -p "Computer: change $(sudo scutil --get ComputerName) to: " computerName
-		sudo scutil --set ComputerName $computerName
+else
+    ok "skipped";
+fi
+
+read -r -p "Do you want to overwrite /etc/hosts with the ad-blocking hosts file from someonewhocares.org [y|N] " response
+if [[ $response =~ (yes|y|Y) ]];then
+		running "Backing up current /etc/hosts to /etc/hosts.backup"
+		sudo cp /etc/hosts /etc/hosts.backup; ok
+		running "Overwriting /etc/hosts"
+		sudo cp ./config/hosts /etc/hosts; ok
 		ok
 else
     ok "skipped";
@@ -204,12 +215,6 @@ sudo systemsetup -setwakeonmodem off; ok
 
 running "Disabling wake-on LAN"
 sudo systemsetup -setwakeonnetworkaccess off; ok
-
-action "Overwriting /etc/hosts with the ad-blocking hosts file from someonewhocares.org"
-running "Backing up current /etc/hosts to /etc/hosts.backup"
-sudo cp /etc/hosts /etc/hosts.backup; ok
-running "Overwriting /etc/hosts"
-sudo cp ./config/hosts /etc/hosts; ok
 
 ###############################################################################
 # Monitors                                                                    #

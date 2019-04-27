@@ -36,7 +36,6 @@
     "**/node_modules": true,
     "**/bower_components": true
   },
-  "files.trimFinalNewlines": true,
   "git.autofetch": true,
   "search.exclude": {
     "**/node_modules": true,
@@ -58,5 +57,8 @@
   "auto-close-tag.activationOnLanguage": ["*"],
   "auto-rename-tag.activationOnLanguage": ["*"],
   "gitlens.defaultDateStyle": "absolute",
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "prettier.printWidth": 120
 }

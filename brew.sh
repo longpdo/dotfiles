@@ -15,9 +15,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 bot "Installing zsh, ohmyzsh, powerlevel9k theme..."
-install_brew zsh 
-install_brew zsh-autosuggestions 
-install_brew zsh-completions 
+install_brew zsh
+install_brew zsh-autosuggestions
+install_brew zsh-completions
 install_brew zsh-syntax-highlighting
 
 action "Installing oh-my-zsh..."
@@ -38,16 +38,35 @@ ok
 # Homebrew                                                                    #
 ###############################################################################
 
+bot "Adding taps to brew..."
+install_tap caskroom/versions
+install_tap homebrew/cask-fonts
+
 bot "Installing binaries, terminal stuff, CLI..."
+install_brew autojump
+install_brew bat
+install_brew coreutils
+install_brew exa
+install_brew fd
+install_brew findutils
+install_brew fzf
 install_brew git
-install_brew tree
-install_brew mas
-install_brew neofetch 
+install_brew gnu-sed
+install_brew gnu-tar
 install_brew htop
-brew install ruby
+install_brew jq
+install_brew mas
+install_brew neovim
+install_brew neofetch
+install_brew ruby
 install_brew the_silver_searcher
 install_brew thefuck
-install_brew autojump
+install_brew tldr
+install_brew tokei
+install_tree trash
+install_brew tree
+install_brew wget
+install_brew youtube-dl
 
 bot "Installing dev environment..."
 install_brew maven
@@ -57,13 +76,17 @@ install_brew mongodb
 install_brew redis
 
 bot "Installing fonts..."
-brew tap homebrew/cask-fonts
 install_cask font-firacode-nerd-font-mono
 
 bot "Installing dev tool casks..."
-install_cask visual-studio-code
+install_cask fsnotes
+install_cask gitup
+install_cask intellij-idea
 install_cask iterm2
-install_cask java
+install_cask java8
+install_cask visual-studio-code
+#install_cask pycharm
+#install_cask webstorm
 
 bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
@@ -86,21 +109,31 @@ install_cask whatsapp
 
 bot "Installing quick look plugins..."
 # Reference: https://github.com/sindresorhus/quick-look-plugins/blob/master/readme.md
-install_cask qlcolorcode 
-install_cask qlstephen 
-install_cask qlmarkdown 
-install_cask quicklook-json 
-install_cask betterzip 
-install_cask suspicious-package 
-install_cask webpquicklook 
+install_cask qlcolorcode
+install_cask qlstephen
+install_cask qlmarkdown
+install_cask quicklook-json
+install_cask betterzip
+install_cask suspicious-package
+install_cask webpquicklook
 install_cask qlvideo
+
+###############################################################################
+# npm                                                                         #
+###############################################################################
+
+bot "Installing npm packages..."
+install_npm @angular/cli
+install_npm fkill-cli
+install_npm ngma # Migration Assistant AngularJS to Angular
+install_npm typescript
 
 ###############################################################################
 # Ruby                                                                        #
 ###############################################################################
 
 bot "Installing ruby packages..."
-install_gem_local bundler 
+install_gem_local bundler
 install_gem_local jekyll
 
 ###############################################################################
@@ -127,6 +160,7 @@ mv "PortfolioPerformance.app" /Applications/
 ok
 
 bot "Cleaning up..."
-brew cleanup
+brew cleanup -v
+gem cleanup -v
 rm "$(ls | grep PortfolioPerformance)"
 ok
