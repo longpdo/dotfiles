@@ -140,13 +140,20 @@ CODE_EXTENSIONS=(
   formulahendry.auto-close-tag
   formulahendry.auto-rename-tag
   Gruntfuggly.todo-tree
+  remimarsal.prettier-now
+  #naumovs.color-highlight
   # PRODUCTIVITY
   alefragnani.project-manager
+  chakrounanas.turbo-console-log
   christian-kohler.path-intellisense
   eamodio.gitlens
-  formulahendry.code-runner
+  humao.rest-client
+  johnpapa.angular2
+  #pranaygp.vscode-css-peek
+  #ritwickdey.liveserver
+  xabikos.javascriptsnippets
 )
-for ext in "$CODE_EXNTENSIONS"; do
+for ext in "$CODE_EXTENSIONS"; do
   install_code "$ext"
 done
 ok

@@ -90,12 +90,14 @@ install_cask visual-studio-code
 
 bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
+install_cask agenda
 install_cask alfred
 install_cask appcleaner
 install_cask evernotes
 install_cask fliqlo
 install_cask google-chrome
 install_cask google-backup-and-sync
+install_cask hipchat
 install_cask iina
 install_cask keepassx
 install_cask keepingyouawake

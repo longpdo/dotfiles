@@ -74,7 +74,7 @@ fh() {
   print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
 
-# fbr - checkout git branch (including remote branches)
+# gco - checkout git branch (including remote branches)
 gco() {
   local branches target
   branches=$(
