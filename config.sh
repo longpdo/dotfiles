@@ -35,7 +35,7 @@ defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
 ok
 
-running "Using the system-native print preview dialog" 
+running "Using the system-native print preview dialog"
 defaults write com.google.Chrome DisablePrintPreview -bool true; ok
 
 running "Expanding print dialog by default"

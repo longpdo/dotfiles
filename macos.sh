@@ -120,7 +120,7 @@ defaults write com.apple.dock autohide-time-modifier -float 0; ok
 running "Enabling spring loading for all Dock items"
 defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true; ok
 
-running "Disabling opening apps animations from the Dock" 
+running "Disabling opening apps animations from the Dock"
 defaults write com.apple.dock launchanim -bool false; ok
 
 running "Changing minimize window effect to scale"
@@ -138,7 +138,7 @@ defaults write com.apple.dock persistent-apps -array; ok
 running "Showing indicator lights for open application"
 defaults write com.apple.dock show-process-indicators -bool true; ok
 
-running "Removing recent applications" 
+running "Removing recent applications"
 defaults write com.apple.dock show-recents -bool false; ok
 
 running "Making icons of hidden applications translucent"
@@ -304,7 +304,7 @@ ok
 running "Disabling “natural” scrolling"
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false; ok
 
-running "Disabling the Launchpad gesture (pinch with thumb and three fingers)" 
+running "Disabling the Launchpad gesture (pinch with thumb and three fingers)"
 defaults write com.apple.dock showLaunchpadGestureEnabled -int 0; ok
 
 ###############################################################################
@@ -407,13 +407,13 @@ ok
 
 action "Changing screenshot behaviour..."
 
-running "Saving screenshots to the desktop" 
+running "Saving screenshots to the desktop"
 defaults write com.applse.screencapture location -string "${HOME}/Desktop"; ok
 
 running "Changing screenshots to PNG format"
 defaults write com.apple.screencapture type -string "png"; ok
 
-running "Disabling shadow in screenshots" 
+running "Disabling shadow in screenshots"
 defaults write com.apple.screencapture disable-shadow -bool true; ok
 
 ###############################################################################
@@ -445,7 +445,7 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"; ok
 running "Disabling the warning when changing a file extension"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false; ok
 
-running "Expanding the File Info panes" 
+running "Expanding the File Info panes"
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
 	General -bool true \
@@ -583,13 +583,13 @@ ok
 running "Preventing opening files automatically after downloading"
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false; ok
 
-running "Mapping Backspace key to go to the previous page in Safari" 
+running "Mapping Backspace key to go to the previous page in Safari"
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true; ok
 
 running "Disabling thumbnail cache for History and Top Sites"
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2; ok
 
-running "Making search default in Safari to Contains instead of Starts With" 
+running "Making search default in Safari to Contains instead of Starts With"
 defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false; ok
 
 running "Enabling the Develop menu and the Web Inspector in Safari"
@@ -704,7 +704,7 @@ defaults write com.apple.appstore WebKitDeveloperExtras -bool true; ok
 running "Turning on app auto-update"
 defaults write com.apple.commerce AutoUpdate -bool true; ok
 
-running "Allowing to reboot machine on macOS updates" 
+running "Allowing to reboot machine on macOS updates"
 defaults write com.apple.commerce AutoUpdateRestartRequired -bool true; ok
 
 running "Enabling the automatic update check in App Store"

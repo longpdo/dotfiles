@@ -1291,8 +1291,11 @@
 	<false/>
 	<key>OpenTmuxWindowsIn</key>
 	<integer>2</integer>
+<<<<<<< HEAD
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>2</integer>
+=======
+>>>>>>> fcae97b5e23e61fab07d025d011df790724aad82
 	<key>PinchToChangeFontSizeDisabled</key>
 	<true/>
 	<key>PointerActions</key>

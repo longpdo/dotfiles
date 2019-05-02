@@ -54,8 +54,8 @@
 
   "auto-close-tag.enableAutoCloseTag": true,
   "auto-close-tag.enableAutoCloseSelfClosingTag": true,
-  "auto-close-tag.activationOnLanguage": ["*"],
-  "auto-rename-tag.activationOnLanguage": ["*"],
+  "auto-close-tag.activationOnLanguage": [ "*" ],
+  "auto-rename-tag.activationOnLanguage": [ "*" ],
   "gitlens.defaultDateStyle": "absolute",
   "prettier.singleQuote": true,
   "files.insertFinalNewline": true,

@@ -19,7 +19,7 @@ else
   ok
 fi
 
-action "Installing all available updates..." 
+action "Installing all available updates..."
 sudo softwareupdate -ia --verbose
 ok
 
@@ -28,7 +28,7 @@ if test ! $(xcode-select -p); then
   running "Installing Xcode Command Line Tools..."
   xcode-select --install
   ok
-else 
+else
   ok "already installed"
 fi
 
@@ -39,9 +39,9 @@ if test ! $(which brew); then
   running "Installing dropbox..."
   install_cask dropbox
   # Opening Dropbox to login for the first time to sync files needed for config.sh
-  open -a "Dropbox" 
+  open -a "Dropbox"
   ok
-else 
+else
   ok "already installed"
 fi
 
