@@ -68,13 +68,6 @@ install_brew tree
 install_brew wget
 install_brew youtube-dl
 
-bot "Installing dev environment..."
-install_brew maven
-install_brew node
-install_brew postgresql
-install_brew mongodb
-install_brew redis
-
 bot "Installing fonts..."
 install_cask font-firacode-nerd-font-mono
 
@@ -83,17 +76,22 @@ install_cask fsnotes
 install_cask gitup
 install_cask intellij-idea
 install_cask iterm2
-install_cask java8
+install_cask java
 install_cask visual-studio-code
-#install_cask pycharm
-#install_cask webstorm
+
+bot "Installing dev environment..."
+install_brew maven
+install_brew node
+install_brew postgresql
+install_brew mongodb
+install_brew redis
 
 bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
 install_cask agenda
 install_cask alfred
 install_cask appcleaner
-install_cask evernotes
+install_cask evernote
 install_cask fliqlo
 install_cask google-chrome
 install_cask google-backup-and-sync
