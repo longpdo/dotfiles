@@ -43,7 +43,7 @@ defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true; ok
 
 running "Backing up current Chrome settings and symlinking preferred settings from Dropbox"
 mv ~/Library/Application\ Support/Google/Chrome/Default ~/Library/Application\ Support/Google/Chrome/Default_backup
-ln -s ~/Dropbox/Google Chrome-Default ~/Library/Application\ Support/Google/Chrome/Default
+ln -s ~/Dropbox/Google\ Chrome-Default ~/Library/Application\ Support/Google/Chrome/Default
 ok
 
 ###############################################################################

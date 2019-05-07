@@ -63,7 +63,7 @@ install_brew the_silver_searcher
 install_brew thefuck
 install_brew tldr
 install_brew tokei
-install_tree trash
+install_brew trash
 install_brew tree
 install_brew wget
 install_brew youtube-dl
