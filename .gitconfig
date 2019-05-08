@@ -30,5 +30,7 @@
     cmd = code --wait --diff $LOCAL $REMOTE
 [github]
 	user = longpdo
-[http]
+[http "https://git.easycredit.intern"]
 	sslCAInfo = /Users/longdo/Dropbox/cert/tb.cer
+[http "https://mad-srv.informatik.uni-erlangen.de"]
+	sslCAInfo = /Users/longdo/Dropbox/cert/fauca-chain.crt
