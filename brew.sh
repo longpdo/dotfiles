@@ -77,6 +77,8 @@ install_cask gitup
 install_cask intellij-idea
 install_cask iterm2
 install_cask java
+# java8 not available anymore
+install_cask java8
 install_cask visual-studio-code
 
 bot "Installing dev environment..."

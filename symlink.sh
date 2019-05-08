@@ -2,12 +2,11 @@
 
 # Include library helper for colorized echo
 source ./library/helper_echo.sh
-source ./library/helper_install.sh
 
 # Variables
-dir=~/dotfiles             
-olddir=~/dotfiles_old       
-files=".gitconfig .zshrc"   
+dir=~/dotfiles
+olddir=~/dotfiles_old
+files=".gitconfig .zshrc"
 
 bot "Symlinking dotfiles..."
 running "Creating $olddir for backup of any existing dotfiles in home directory"
