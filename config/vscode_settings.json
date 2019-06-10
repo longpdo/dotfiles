@@ -5,14 +5,12 @@
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "line",
   "editor.cursorWidth": 3,
-  "editor.fontSize": 16,
   "editor.fontFamily": "FuraCode Nerd Font Mono",
   "editor.fontLigatures": true,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
   "editor.tabCompletion": "on",
-  "editor.tabSize": 2,
   "editor.minimap.enabled": false,
   "explorer.sortOrder": "type",
   "files.exclude": {
@@ -59,7 +57,16 @@
   "gitlens.defaultDateStyle": "absolute",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
-  "prettier.tabWidth": 2,
   "prettier.useTabs": false,
-  "prettier.singleQuote": false
+  "prettier.singleQuote": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.fontSize": 16,
+
+  "[python]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
+  },
+  "editor.tabSize": 2,
+  "prettier.tabWidth": 2
 }
+

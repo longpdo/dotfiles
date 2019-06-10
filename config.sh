@@ -139,7 +139,6 @@ CODE_EXTENSIONS=(
   CoenraadS.bracket-pair-colorizer
   formulahendry.auto-close-tag
   formulahendry.auto-rename-tag
-  Gruntfuggly.todo-tree
   remimarsal.prettier-now
   #naumovs.color-highlight
   # PRODUCTIVITY
@@ -149,6 +148,7 @@ CODE_EXTENSIONS=(
   eamodio.gitlens
   humao.rest-client
   johnpapa.angular2
+  ms-python.python
   #pranaygp.vscode-css-peek
   #ritwickdey.liveserver
   xabikos.javascriptsnippets

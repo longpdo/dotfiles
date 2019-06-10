@@ -144,11 +144,8 @@ defaults write com.apple.dock show-recents -bool false; ok
 running "Making icons of hidden applications translucent"
 defaults write com.apple.dock showhidden -bool true; ok
 
-running "Showing only open applications"
-defaults write com.apple.dock static-only -bool true; ok
-
-running "Setting the icon size of Dock items to 36 pixels"
-defaults write com.apple.dock tilesize -int 36; ok
+running "Setting the icon size of Dock items to 50 pixels"
+defaults write com.apple.dock tilesize -int 50; ok
 
 running "Disabling the focus ring animation"
 defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false; ok

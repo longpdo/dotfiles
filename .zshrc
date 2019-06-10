@@ -66,7 +66,7 @@ j() {
         cd $(autojump $@)
         return
     fi
-    cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' | sort -r | fzf --height 40% --reverse --inline-info)" 
+    cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' | sort -r | fzf --height 40% --reverse --inline-info)"
 }
 
 # fh - repeat history #TODO new name for function
@@ -100,7 +100,7 @@ glog() {
 FZF-EOF"
 }
 
-#browse chrome bookmarks #TODO rename ruby script and place the script in github folder 
+#browse chrome bookmarks #TODO rename ruby script and place the script in github folder
 b() {
   ~/Downloads/b.rb
 }

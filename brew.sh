@@ -72,14 +72,15 @@ bot "Installing fonts..."
 install_cask font-firacode-nerd-font-mono
 
 bot "Installing dev tool casks..."
-install_cask fsnotes
-install_cask gitup
+install_cask boostnote
 install_cask intellij-idea
 install_cask iterm2
 install_cask java
 # java8 not available anymore
 install_cask java8
+install_cask pycharm
 install_cask visual-studio-code
+install_cask webstorm
 
 bot "Installing dev environment..."
 install_brew maven
@@ -90,7 +91,6 @@ install_brew redis
 
 bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
-install_cask agenda
 install_cask alfred
 install_cask appcleaner
 install_cask evernote
@@ -143,7 +143,6 @@ install_gem_local jekyll
 ###############################################################################
 
 bot "Installing apps from App Store..."
-install_mas 1278508951 # Trello
 install_mas 836505650 # Battery Monitor: Health, Info
 
 ###############################################################################
