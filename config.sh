@@ -27,7 +27,6 @@ ok
 ###############################################################################
 # Google Chrome                                                               #
 ###############################################################################
-
 action "Changing Google Chrome settings..."
 
 running "Disabling the backswipe on trackpad/mouse"
@@ -47,18 +46,8 @@ ln -s ~/Dropbox/Google\ Chrome-Default ~/Library/Application\ Support/Google/Chr
 ok
 
 ###############################################################################
-# KeePassX                                                                    #
-###############################################################################
-
-running "Backing up current KeePassX settings and symlinking preferred settings from Dropbox"
-mv ~/Library/Application\ Support/keepassx/keepassx2.ini ~/Library/Application\ Support/keepassx/keepassx2_backup.ini
-ln -s ~/Dropbox/keepassx2.ini ~/Library/Application\ Support/keepassx/keepassx2.ini
-ok
-
-###############################################################################
 # iTerm 2                                                                     #
 ###############################################################################
-
 action "Changing iTerm settings..."
 
 running "Disabling prompt when quitting iTerm"
@@ -80,28 +69,24 @@ running "Installing color theme for iTerm (opening file)"
 open "./themes/Dracula.itermcolors"; ok
 
 ###############################################################################
+# Karabiner                                                                   #
+###############################################################################
+action "Backing up current Karabiner settings and symlinking preferred settings from dotfiles"
+mv ~/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner_backup.json
+ln -s ~/dotfiles/config/karabiner.json ~/.config/karabiner/karabiner.json
+ok
+
+###############################################################################
 # mongoDB                                                                     #
 ###############################################################################
-
 action "Setting up mongoDB..."
 sudo mkdir -p /data/db
 sudo chown -R `id -un` /data/db
 ok
 
 ###############################################################################
-# Slack                                                                       #
-###############################################################################
-
-action "Installing Slack dark mode"
-# Reference: https://github.com/caiceA/slack-black-theme
-mv /Applications/Slack.app/contents/Resources/app.asar.unpacked/src/static/ssb-interop.js /Applications/Slack.app/contents/Resources/app.asar.unpacked/src/static/ssb-interop_backup.js
-ln -s ~/dotfiles/config/slack_dark_mode.js /Applications/Slack.app/contents/Resources/app.asar.unpacked/src/static/ssb-interop.js
-ok
-
-###############################################################################
 # Spectacle                                                                   #
 ###############################################################################
-
 action "Backing up current Spectacle shortcuts and symlinking preferred shortcuts from dotfiles"
 mv ~/Library/Application\ Support/Spectacle/Shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts_backup.json
 ln -s ~/dotfiles/config/spectacle_shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
@@ -110,7 +95,6 @@ ok
 ###############################################################################
 # Tunnelblick                                                                 #
 ###############################################################################
-
 running "Configuring university vpn"
 open ~/Dropbox/Tunnelblick/FAU-Fulltunnel.ovpn; ok
 
@@ -120,7 +104,6 @@ open ~/Dropbox/Tunnelblick/ldo-TO-IPFire/ldo-TO-IPFire.ovpn; ok
 ###############################################################################
 # Visual Studio Code                                                          #
 ###############################################################################
-
 action "Setting up Visual Studio Code..."
 
 running "Fixing VSCodeVim Key Repeat"
@@ -140,35 +123,32 @@ CODE_EXTENSIONS=(
   formulahendry.auto-close-tag
   formulahendry.auto-rename-tag
   remimarsal.prettier-now
-  #naumovs.color-highlight
   # PRODUCTIVITY
   alefragnani.project-manager
   chakrounanas.turbo-console-log
   christian-kohler.path-intellisense
   eamodio.gitlens
-  humao.rest-client
+  k--kato.intellij-idea-keybindings
+  shd101wyy.markdown-preview-enhanced
+  # CODE SNIPPETS
+  dbaeumer.vscode-eslint
   johnpapa.angular2
   ms-python.python
-  #pranaygp.vscode-css-peek
-  #ritwickdey.liveserver
+  ms-vscode.vscode-typescript-tslint-plugin
   xabikos.javascriptsnippets
 )
-for ext in "$CODE_EXTENSIONS"; do
-  install_code "$ext"
+for ext in "${CODE_EXTENSIONS[@]}"; do
+  echo "$ext"
 done
-ok
 
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
-
 bot "Killing affected applications..."
 for app in
   "Alfred 3" \
 	"Google Chrome" \
   "iTerm" \
-  "KeePassX" \
-  "Slack" \
 	"Spectacle" \
   "Visual Studio Code"; do
 	killall "${app}" &> /dev/null
