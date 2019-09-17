@@ -13,7 +13,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 # ZSH                                                                         #
 ###############################################################################
-
 bot "Installing zsh, ohmyzsh, powerlevel9k theme..."
 install_brew zsh
 install_brew zsh-autosuggestions
@@ -27,7 +26,7 @@ action "Installing powerlevel9k..."
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
 running "Installing the Tomorrow Night theme for iTerm (opening file)"
-open "./themes/Tomorrow Night.itermcolors"
+open "./themes/Dracula.itermcolors"
 ok
 
 running "Setting ZSH as the default shell environment"
@@ -37,103 +36,63 @@ ok
 ###############################################################################
 # Homebrew                                                                    #
 ###############################################################################
-
 bot "Adding taps to brew..."
 install_tap caskroom/versions
 install_tap homebrew/cask-fonts
 
 bot "Installing binaries, terminal stuff, CLI..."
-install_brew autojump
-install_brew bat
-install_brew coreutils
-install_brew exa
-install_brew fd
-install_brew findutils
-install_brew fzf
-install_brew git
-install_brew gnu-sed
-install_brew gnu-tar
-install_brew htop
-install_brew jq
-install_brew mas
-install_brew neovim
-install_brew neofetch
-install_brew ruby
-install_brew the_silver_searcher
-install_brew thefuck
-install_brew tldr
-install_brew tokei
-install_brew trash
-install_brew tree
-install_brew wget
-install_brew youtube-dl
+BINARIES=(autojump bat coreutils exa fd ffmpeg findutils fzf git gnu-sed gnu-tar
+  htop jq mas neovim neofetch ruby the_silver_searcher tldr tokei trash tree
+  wget youtube-dl)
+for brew in "${BINARIES[@]}"; do
+  install_brew "$brew"
+done
+
+bot "Installing dev environment..."
+DEV_ENV=(maven node mongodb)
+for brew in "${DEV_ENV[@]}"; do
+  install_brew "$brew"
+done
 
 bot "Installing fonts..."
 install_cask font-firacode-nerd-font-mono
 
 bot "Installing dev tool casks..."
-install_cask boostnote
-install_cask intellij-idea
-install_cask iterm2
-install_cask java
 # java8 not available anymore
-install_cask java8
-install_cask pycharm
-install_cask visual-studio-code
-install_cask webstorm
-
-bot "Installing dev environment..."
-install_brew maven
-install_brew node
-install_brew postgresql
-install_brew mongodb
-install_brew redis
+DEV_TOOLS=(chromedriver intellij-idea iterm2 java java8 postman pycharm robo-3t
+  visual-studio-code webstorm)
+for cask in "${DEV_TOOLS[@]}"; do
+  install_cask "$cask"
+done
 
 bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
-install_cask alfred
-install_cask appcleaner
-install_cask evernote
-install_cask fliqlo
-install_cask google-chrome
-install_cask google-backup-and-sync
-install_cask hipchat
-install_cask iina
-install_cask keepassx
-install_cask keepingyouawake
-install_cask mactex
-install_cask slack
-install_cask spectacle
-install_cask texmaker
-install_cask the-unarchiver
-install_cask tunnelblick
-install_cask whatsapp
+MISC=(alfred appcleaner bitwarden google-chrome google-backup-and-sync hipchat
+  iina karabiner-elements keepingyouawake mactex notion slack spectacle
+  texmaker the-unarchiver tunnelblick whatsapp)
+for cask in "${MISC[@]}"; do
+  install_cask "$cask"
+done
 
 bot "Installing quick look plugins..."
 # Reference: https://github.com/sindresorhus/quick-look-plugins/blob/master/readme.md
-install_cask qlcolorcode
-install_cask qlstephen
-install_cask qlmarkdown
-install_cask quicklook-json
-install_cask betterzip
-install_cask suspicious-package
-install_cask webpquicklook
-install_cask qlvideo
+PLUGINS=(qlcolorcode qlstephen qlmarkdown quicklook-json betterzip
+  suspicious-package webpquicklook qlvideo)
+for cask in "${PLUGINS[@]}"; do
+  install_cask "$cask"
+done
 
 ###############################################################################
 # npm                                                                         #
 ###############################################################################
-
 bot "Installing npm packages..."
 install_npm @angular/cli
 install_npm fkill-cli
-install_npm ngma # Migration Assistant AngularJS to Angular
 install_npm typescript
 
 ###############################################################################
 # Ruby                                                                        #
 ###############################################################################
-
 bot "Installing ruby packages..."
 install_gem_local bundler
 install_gem_local jekyll
@@ -141,14 +100,12 @@ install_gem_local jekyll
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
-
 bot "Installing apps from App Store..."
 install_mas 836505650 # Battery Monitor: Health, Info
 
 ###############################################################################
 # Other apps                                                                  #
 ###############################################################################
-
 action "Downloading latest release of Portfolio Performance..."
 curl -LO "$(curl -s https://api.github.com/repos/buchen/portfolio/releases/latest \
 | grep browser_download_url | grep 'macosx' | head -n 1 | cut -d '"' -f 4)"
@@ -161,6 +118,7 @@ mv "PortfolioPerformance.app" /Applications/
 ok
 
 bot "Cleaning up..."
+# Remove unused brew dependencies
 brew cleanup -v
 gem cleanup -v
 rm "$(ls | grep PortfolioPerformance)"
