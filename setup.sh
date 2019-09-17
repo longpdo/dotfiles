@@ -13,9 +13,9 @@ function runScripts() {
     # Run sections based on command line arguments
     for ARG in "$@"
     do
-        if [ $ARG == "update" ] || [ $ARG == "all" ]; then
-            bot "Starting update.sh script..."
-            ./osxprep.sh
+        if [ $ARG == "init" ] || [ $ARG == "all" ]; then
+            bot "Starting init.sh script..."
+            ./init.sh
         fi
         if [ $ARG == "brew" ] || [ $ARG == "all" ]; then
             bot "Starting brew.sh script..."

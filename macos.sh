@@ -8,7 +8,6 @@ source ./library/helper_echo.sh
 ###############################################################################
 # Prompt user input                                                           #
 ###############################################################################
-
 # Ask for the administrator password upfront
 sudo -v
 
@@ -47,7 +46,6 @@ ok
 ###############################################################################
 # General                                                                     #
 ###############################################################################
-
 action "Changing General settings..."
 
 running "Disabling the crash reporter"
@@ -86,26 +84,15 @@ running "Removing duplicates in the “Open With” menu"
 ###############################################################################
 # Desktop & Screensaver                                                       #
 ###############################################################################
-
 action "Changing Desktop & Screensaver settings..."
 
 running "Setting wallpaper"
 # Absolute path is needed for this to work, no ~ paths possible
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Library/Desktop Pictures/Color Burst 3.jpg"'; ok
 
-running "Setting time to activate screensaver"
-defaults -currentHost write com.apple.screensaver idleTime 60; ok
-
-running "Setting screensaver to Fliqlo"
-defaults write com.apple.screensaver modulePath -string "/Library/Screen\ Savers/Fliqlo.saver"
-defaults write com.apple.screensaver moduleName -string "Fliqlo"
-defaults write com.apple.screensaver moduleDict -dict moduleName Fliqlo path /Library/Screen\ Savers/Fliqlo.saver type 0
-ok
-
 ###############################################################################
 # Dock                                                                        #
 ###############################################################################
-
 action "Changing Dock settings..."
 
 running "Enabling autohiding"
@@ -153,7 +140,6 @@ defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false; ok
 ###############################################################################
 # Mission Control                                                             #
 ###############################################################################
-
 action "Changing Mission Control settings..."
 
 running "Disabling Dashboard"
@@ -174,7 +160,6 @@ defaults write com.apple.dock mru-spaces -bool false; ok
 ###############################################################################
 # Language & Region                                                           #
 ###############################################################################
-
 action "Changing Language & Region settings..."
 
 running "Setting timezone to Europe/Berlin"
@@ -183,7 +168,6 @@ sudo systemsetup -settimezone "Europe/Berlin" > /dev/null; ok
 ###############################################################################
 # Security                                                                    #
 ###############################################################################
-
 action "Changing Security settings..."
 
 running "Enabling Firewall"
@@ -216,7 +200,6 @@ sudo systemsetup -setwakeonnetworkaccess off; ok
 ###############################################################################
 # Monitors                                                                    #
 ###############################################################################
-
 action "Changing Monitors settings..."
 
 running "Activating night shift"
@@ -234,7 +217,6 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1; ok
 ###############################################################################
 # Keyboard                                                                    #
 ###############################################################################
-
 action "Changing Keyboard settings..."
 
 running "Enabling full keyboard access for all controls"
@@ -270,7 +252,6 @@ launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/nul
 ###############################################################################
 # Mouse                                                                       #
 ###############################################################################
-
 action "Changing Mouse settings..."
 
 running "Setting mouse tracking speed"
@@ -279,7 +260,6 @@ defaults write NSGlobalDomain com.apple.mouse.scaling -float 3.0; ok
 ###############################################################################
 # Trackpad                                                                    #
 ###############################################################################
-
 action "Changing Trackpad settings..."
 
 running "Setting trackpad tracking speed"
@@ -307,7 +287,6 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -int 0; ok
 ###############################################################################
 # Printer & Scanner                                                           #
 ###############################################################################
-
 action "Changing Printer & Scanner settings..."
 
 running "Expanding save and print panel by default"
@@ -323,7 +302,6 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true; ok
 ###############################################################################
 # Audio                                                                       #
 ###############################################################################
-
 action "Changing Audio settings..."
 
 running "Increasing sound quality for Bluetooth headsets"
@@ -332,7 +310,6 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 ###############################################################################
 # Time Machine                                                                #
 ###############################################################################
-
 action "Changing Time Machine settings..."
 
 running "Preventing Time Machine to use new hard drives as backup volume"
@@ -344,7 +321,6 @@ hash tmutil &> /dev/null && sudo tmutil disable
 ###############################################################################
 # Booting, Login Window                                                       #
 ###############################################################################
-
 running "Disabling guest account login"
 sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false; ok
 
@@ -363,7 +339,6 @@ sudo nvram SystemAudioVolume=" "; ok
 ###############################################################################
 # Menu Bar                                                                    #
 ###############################################################################
-
 action "Organizing the menu bar..."
 
 running "Showing battery percentage in menu bar"
@@ -401,7 +376,6 @@ ok
 ###############################################################################
 # Screenshots                                                                 #
 ###############################################################################
-
 action "Changing screenshot behaviour..."
 
 running "Saving screenshots to the desktop"
@@ -416,7 +390,6 @@ defaults write com.apple.screencapture disable-shadow -bool true; ok
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
-
 action "Changing Finder settings..."
 
 running "Avoiding creating .DS_Store files on network or USB volumes"
@@ -513,7 +486,6 @@ sudo chflags nohidden /Volumes; ok
 ###############################################################################
 # Activity Monitor, Address Book, Disk Utility, TextEdit                      #
 ###############################################################################
-
 action "Changing Apple Apps settings..."
 
 running "Visualizing CPU usage in Activity Monitor Dock icon"
@@ -552,7 +524,6 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true; ok
 ###############################################################################
 # Terminal                                                                    #
 ###############################################################################
-
 action "Changing Terminal settings..."
 
 running "Allowing only UTF-8 in Terminal"
@@ -567,7 +538,6 @@ defaults write com.apple.Terminal ShowLineMarks -int 0; ok
 ###############################################################################
 # Safari & WebKit                                                             #
 ###############################################################################
-
 action "Changing Safari settings..."
 
 running "Disabling AutoFill in Safari"
@@ -658,7 +628,6 @@ ok
 ###############################################################################
 # Mail                                                                        #
 ###############################################################################
-
 action "Changing Mail settings..."
 
 running "Copying email addresses without name"
@@ -689,7 +658,6 @@ ok
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
-
 action "Changing Mac App Store settings..."
 
 running "Enabling Debug Menu in App Store"
@@ -722,7 +690,6 @@ defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1; ok
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
-
 bot "Killing affected applications..."
 for app in "Activity Monitor" \
 	"cfprefsd" \

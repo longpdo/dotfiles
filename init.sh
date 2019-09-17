@@ -45,32 +45,3 @@ if test ! $(which brew); then
 else
   ok "already installed"
 fi
-
-action "Updating homebrew and packages..."
-brew update
-brew upgrade
-ok
-
-action "Upgrading brew cask packages..."
-brew cask outdated
-brew cask upgrade
-ok
-
-if test $(which mas); then
-  action "Upgrading App Store apps..."
-  mas outdated
-  mas upgrade
-  ok
-fi
-
-if test $(which gem); then
-  action "Updating ruby gems..."
-  gem update
-  ok
-fi
-
-action "Cleaning up..."
-brew cleanup -v
-gem cleanup -v
-# Recursively delete `.DS_Store` files
-find . -type f -name '*.DS_Store' -ls -delete

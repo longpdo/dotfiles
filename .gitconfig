@@ -1,7 +1,9 @@
+[include]
+  path = /Users/longdo/Dropbox/config/.gitconfig.local
 [color]
 	diff = auto
 	status = auto
-  	branch = auto
+  branch = auto
 	ui = true
 [color "diff"]
 	meta = yellow
@@ -16,18 +18,14 @@
 	newNormal = green bold
 	newHighlight = green bold 22
 [color "status"]
-  	changed = yellow
-  	added = green
-  	untracked = red
+  changed = yellow
+  added = green
+  untracked = red
 [core]
 	editor = code --wait
 [diff]
-    tool = default-difftool
+  tool = default-difftool
 [difftool "default-difftool"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code --wait --diff $LOCAL $REMOTE
 [github]
 	user = longpdo
-[http "https://git.easycredit.intern"]
-	sslCAInfo = /Users/longdo/Dropbox/cert/tb.cer
-[http "https://mad-srv.informatik.uni-erlangen.de"]
-	sslCAInfo = /Users/longdo/Dropbox/cert/fauca-chain.crt
