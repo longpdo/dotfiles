@@ -13,23 +13,18 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 # ZSH                                                                         #
 ###############################################################################
-bot "Installing zsh, ohmyzsh, powerlevel9k theme..."
+bot "Installing zsh..."
 install_brew zsh
-install_brew zsh-autosuggestions
-install_brew zsh-completions
-install_brew zsh-syntax-highlighting
 
-action "Installing oh-my-zsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-action "Installing powerlevel9k..."
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+action "Installing antibody..."
+curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 
 running "Installing the Tomorrow Night theme for iTerm (opening file)"
 open "./themes/Dracula.itermcolors"
 ok
 
 running "Setting ZSH as the default shell environment"
+sudo sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
 ok
 
@@ -41,9 +36,9 @@ install_tap caskroom/versions
 install_tap homebrew/cask-fonts
 
 bot "Installing binaries, terminal stuff, CLI..."
-BINARIES=(autojump bat coreutils exa fd ffmpeg findutils fzf git gnu-sed gnu-tar
-  htop jq mas neovim neofetch ruby the_silver_searcher tldr tokei trash tree
-  wget youtube-dl)
+BINARIES=(autojump bat coreutils exa fd ffmpeg findutils fzf git git-standup
+  gnu-sed gnu-tar htop jq mas neovim neofetch ruby the_silver_searcher tldr
+  tokei trash wget youtube-dl)
 for brew in "${BINARIES[@]}"; do
   install_brew "$brew"
 done
@@ -59,8 +54,8 @@ install_cask font-firacode-nerd-font-mono
 
 bot "Installing dev tool casks..."
 # java8 not available anymore
-DEV_TOOLS=(chromedriver intellij-idea iterm2 java java8 postman pycharm robo-3t
-  visual-studio-code webstorm)
+DEV_TOOLS=(android-studio chromedriver insomnia intellij-idea iterm2 java java8
+  pycharm robo-3t visual-studio-code webstorm)
 for cask in "${DEV_TOOLS[@]}"; do
   install_cask "$cask"
 done
@@ -101,6 +96,7 @@ install_gem_local jekyll
 # Mac App Store                                                               #
 ###############################################################################
 bot "Installing apps from App Store..."
+install_mas 497799835 # Xcode
 install_mas 836505650 # Battery Monitor: Health, Info
 
 ###############################################################################

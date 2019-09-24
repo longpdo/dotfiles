@@ -44,7 +44,6 @@
   "terminal.integrated.fontSize": 16,
   "window.zoomLevel": 0,
   "workbench.activityBar.visible": true,
-  "workbench.colorTheme": "Dracula",
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.sideBar.location": "left",
@@ -67,6 +66,8 @@
     "editor.tabSize": 4
   },
   "editor.tabSize": 2,
-  "prettier.tabWidth": 2
+  "prettier.tabWidth": 2,
+  "breadcrumbs.enabled": false,
+  "workbench.colorTheme": "Dracula"
 }
 
