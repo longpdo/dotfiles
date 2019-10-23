@@ -94,6 +94,7 @@ function update_all_and_cleanup() {
   brew bundle dump
   brew bundle --force cleanup
   brew cleanup -v
+  rm Brewfile
   gem cleanup -v
   # Recursively delete `.DS_Store` files
   find . -type f -name '*.DS_Store' -ls -delete
