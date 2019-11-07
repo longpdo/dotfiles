@@ -1,3 +1,7 @@
+# Include library helper for colorized echo
+source ~/dotfiles/library/helper_echo.sh
+source ~/dotfiles/library/helper_install.sh
+
 function cd_to_current_finder_window() {
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
@@ -75,28 +79,31 @@ function open_arg_in_vs_code {
 
 function update_all_and_cleanup() {
   sudo -v
-  # Installing all available updates
+  bot "Starting update script..."
+  action "Installing all available updates"
   sudo softwareupdate -ia --verbose
-  # Updating antibody plugins
+  action "Updating antibody plugins"
   antibody update
-  # Updating homebrew and packages
+  action "Updating homebrew and packages"
   brew update
   brew upgrade
-  # Upgrading brew cask packages
+  action "Upgrading brew cask packages"
   brew cask outdated
   brew cask upgrade
-  # Upgrading App Store apps
+  action "Upgrading App Store apps"
   mas outdated
   mas upgrade
-  # Updating ruby gems
+  action "Updating ruby gems"
   gem update
-  # Cleaning up
+  bot "Cleaning up..."
+  action "Cleaning up brew packages"
   brew bundle dump
   brew bundle --force cleanup
   brew cleanup -v
   rm Brewfile
+  action "Cleaning up ruby gems"
   gem cleanup -v
-  # Recursively delete `.DS_Store` files
+  action "Deleting `.DS_Store` files"
   find . -type f -name '*.DS_Store' -ls -delete
 }
 

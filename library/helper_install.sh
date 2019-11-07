@@ -2,7 +2,7 @@
 
 # originally from https://github.com/atomantic/dotfiles/blob/master/lib_sh/requirers.sh
 
-source ./library/helper_echo.sh
+source ~/dotfiles/library/helper_echo.sh
 
 function install_brew() {
     running "brew $1 $2"

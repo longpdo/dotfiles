@@ -37,7 +37,7 @@ install_tap homebrew/cask-fonts
 
 bot "Installing binaries, terminal stuff, CLI..."
 BINARIES=(autojump bat coreutils exa fd ffmpeg findutils fzf git git-standup
-  gnu-sed gnu-tar htop jq mas neovim neofetch ruby the_silver_searcher tldr
+  gnu-sed gnu-tar jq mas neovim neofetch ruby the_silver_searcher tldr
   tokei trash wget youtube-dl)
 for brew in "${BINARIES[@]}"; do
   install_brew "$brew"
@@ -63,7 +63,7 @@ done
 bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
 MISC=(alfred appcleaner bitwarden google-chrome google-backup-and-sync hipchat
-  iina karabiner-elements keepingyouawake mactex notion slack spectacle
+  iina karabiner-elements keepingyouawake mactex notion skype slack spectacle
   texmaker the-unarchiver tunnelblick whatsapp)
 for cask in "${MISC[@]}"; do
   install_cask "$cask"
