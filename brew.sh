@@ -36,15 +36,40 @@ install_tap caskroom/versions
 install_tap homebrew/cask-fonts
 
 bot "Installing binaries, terminal stuff, CLI..."
-BINARIES=(autojump bat coreutils exa fd ffmpeg findutils fzf git git-standup
-  gnu-sed gnu-tar jq mas neovim neofetch ruby the_silver_searcher tldr
-  tokei trash wget youtube-dl)
+BINARIES=(
+  autojump
+  bat
+  coreutils
+  exa
+  fd
+  ffmpeg
+  findutils
+  fzf
+  git
+  git-standup
+  jq
+  mas
+  media-info
+  neovim
+  neofetch
+  ruby
+  the_silver_searcher
+  tldr
+  tokei
+  trash
+  wget
+  youtube-dl
+)
 for brew in "${BINARIES[@]}"; do
   install_brew "$brew"
 done
 
 bot "Installing dev environment..."
-DEV_ENV=(maven node mongodb)
+DEV_ENV=(
+  maven
+  node
+  mongodb
+)
 for brew in "${DEV_ENV[@]}"; do
   install_brew "$brew"
 done
@@ -53,26 +78,60 @@ bot "Installing fonts..."
 install_cask font-firacode-nerd-font-mono
 
 bot "Installing dev tool casks..."
-# java8 not available anymore
-DEV_TOOLS=(android-studio chromedriver insomnia intellij-idea iterm2 java java8
-  pycharm robo-3t visual-studio-code webstorm)
+DEV_TOOLS=(
+  android-studio
+  chromedriver
+  insomnia
+  intellij-idea
+  iterm2
+  java
+  java8 # java8 not available anymore
+  pycharm
+  robo-3t
+  visual-studio-code
+  webstorm
+)
 for cask in "${DEV_TOOLS[@]}"; do
   install_cask "$cask"
 done
 
 bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
-MISC=(alfred appcleaner bitwarden google-chrome google-backup-and-sync hipchat
-  iina karabiner-elements keepingyouawake mactex notion skype slack spectacle
-  texmaker the-unarchiver tunnelblick whatsapp)
+MISC=(
+  alfred
+  appcleaner
+  bitwarden
+  google-chrome
+  google-backup-and-sync
+  handbrake
+  hipchat
+  iina
+  jdownloader
+  karabiner-elements
+  keepingyouawake
+  mactex
+  notion
+  skype
+  slack
+  spectacle
+  texmaker
+  the-unarchiver
+  tunnelblick
+  whatsapp
+)
 for cask in "${MISC[@]}"; do
   install_cask "$cask"
 done
 
 bot "Installing quick look plugins..."
 # Reference: https://github.com/sindresorhus/quick-look-plugins/blob/master/readme.md
-PLUGINS=(qlcolorcode qlstephen qlmarkdown quicklook-json betterzip
-  suspicious-package webpquicklook qlvideo)
+PLUGINS=(
+  qlcolorcode
+  qlstephen
+  qlmarkdown
+  quicklook-json
+  qlvideo
+)
 for cask in "${PLUGINS[@]}"; do
   install_cask "$cask"
 done

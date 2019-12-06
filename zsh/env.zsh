@@ -9,7 +9,6 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH=$(cd $HOME/.gem/ruby/*/bin; pwd):$PATH
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/bc/bin:$PATH"
 export PATH="/Users/longdo/repos/flutter/bin:$PATH"
