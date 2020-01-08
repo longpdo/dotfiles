@@ -15,6 +15,10 @@ function create_dir_and_cd_to_it {
   mkdir -p "$@" && cd "$_";
 }
 
+function convert_audio_flac_to_aac_vbr_5 {
+  find . -name '*.flac' -exec sh -c 'ffmpeg -i "$1" -c:v copy -c:a libfdk_aac -vbr 5 "${1%.flac}.m4a"' _ {} \;
+}
+
 function download_youtube_video() {
   youtube-dl $1 -o "~/Downloads/%(title)s.%(ext)s"
 }

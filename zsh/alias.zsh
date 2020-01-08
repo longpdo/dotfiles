@@ -34,6 +34,7 @@ alias zep='git standup -A "$(date -u +"%Y-%m-%d") 00:00:00" -B "$(date -u +"%Y-%
 
 # Functions
 alias c='open_arg_in_vs_code'
+alias ca='convert_audio_flac_to_aac_vbr_5'
 alias cdf='cd_to_current_finder_window'
 alias gco='git_checkout_branch_with_fzf'
 alias gclean='git_clean_branches'
@@ -41,6 +42,7 @@ alias gh='git_open_repo_in_browser'
 alias glog='git_commit_log_with_fzf'
 alias history='zsh_history_with_fzf'
 alias j='jump_to_given_dir_or_with_fzf'
+alias mi='mediainfo'
 alias mkd='create_dir_and_cd_to_it'
 alias update='update_all_and_cleanup'
 alias wifi='get_wifi_password'

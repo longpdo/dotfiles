@@ -42,6 +42,7 @@ BINARIES=(
   coreutils
   exa
   fd
+  ## homebrew-ffmpeg/ffmpeg/ffmpeg --with-fdk-aac\n
   ffmpeg
   findutils
   fzf
@@ -52,6 +53,8 @@ BINARIES=(
   media-info
   neovim
   neofetch
+  rename
+  ripgrep
   ruby
   the_silver_searcher
   tldr
@@ -105,7 +108,7 @@ MISC=(
   google-backup-and-sync
   handbrake
   hipchat
-  iina
+  iinaaom
   jdownloader
   karabiner-elements
   keepingyouawake
