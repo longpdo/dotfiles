@@ -109,7 +109,10 @@ MISC=(
   jdownloader
   karabiner-elements
   keepingyouawake
+  kodi
   mactex
+  mkvtoolnix
+  musicbrainz-picard
   notion
   skype
   slack
