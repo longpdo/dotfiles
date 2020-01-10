@@ -169,14 +169,11 @@ install_mas 836505650 # Battery Monitor: Health, Info
 ###############################################################################
 action "Downloading latest release of Portfolio Performance..."
 curl -LO "$(curl -s https://api.github.com/repos/buchen/portfolio/releases/latest \
-| grep browser_download_url | grep 'macosx' | head -n 1 | cut -d '"' -f 4)"
+| grep browser_download_url | grep '.dmg' | head -n 1 | cut -d '"' -f 4)"
 
-action "Unpacking tar.gz..."
-tar -xzf "$(ls | grep PortfolioPerformance)" | xargs rm -r
-
-action "Moving PortfolioPerformance to application folder..."
-mv "PortfolioPerformance.app" /Applications/
-ok
+action "Downloading latest release of subsync..."
+curl -LO "$(curl -s https://api.github.com/repos/sc0ty/subsync/releases \
+| grep browser_download_url | grep 'mac' | head -n 1 | cut -d '"' -f 4)"
 
 bot "Cleaning up..."
 # Remove unused brew dependencies
