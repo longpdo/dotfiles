@@ -5,8 +5,7 @@
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "line",
   "editor.cursorWidth": 3,
-  "editor.fontFamily": "FuraCode Nerd Font Mono",
-  "editor.fontLigatures": true,
+  "editor.fontLigatures": false,
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
@@ -68,6 +67,7 @@
   "editor.tabSize": 2,
   "prettier.tabWidth": 2,
   "breadcrumbs.enabled": false,
-  "workbench.colorTheme": "Dracula"
+  "workbench.colorTheme": "Dracula",
+  "editor.fontFamily": "FiraCode Nerd Font Mono"
 }
 
