@@ -56,7 +56,6 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "prettier.useTabs": false,
-  "prettier.singleQuote": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "editor.fontSize": 16,
 
@@ -68,6 +67,11 @@
   "prettier.tabWidth": 2,
   "breadcrumbs.enabled": false,
   "workbench.colorTheme": "Dracula",
-  "editor.fontFamily": "FiraCode Nerd Font Mono"
+  "editor.fontFamily": "FiraCode Nerd Font Mono",
+  "prettier.disableLanguages": [
+    "HTML"
+  ],
+  "editor.detectIndentation": false,
+  "latex-workshop.view.pdf.viewer": "tab"
 }
 

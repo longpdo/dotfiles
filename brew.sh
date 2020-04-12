@@ -42,12 +42,11 @@ BINARIES=(
   coreutils
   exa
   fd
-  ## homebrew-ffmpeg/ffmpeg/ffmpeg --with-fdk-aac\n
+  # homebrew-ffmpeg/ffmpeg/ffmpeg --with-fdk-aac\n
   ffmpeg
   findutils
   fzf
   git
-  git-standup
   jq
   mas
   media-info
@@ -56,6 +55,7 @@ BINARIES=(
   rename
   ripgrep
   ruby
+  scrcpy
   the_silver_searcher
   tldr
   tokei
@@ -102,14 +102,17 @@ bot "Installing misc casks..."
 # Dropbox was already installed via update.sh
 MISC=(
   alfred
+  android-platform-tools
   appcleaner
   bitwarden
+  discord
+  firefox-developer-edition
   google-chrome
   google-backup-and-sync
   handbrake
-  hipchat
-  iinaaom
+  iina
   jdownloader
+  kap
   karabiner-elements
   keepingyouawake
   kodi
@@ -117,10 +120,8 @@ MISC=(
   mkvtoolnix
   musicbrainz-picard
   notion
-  skype
   slack
   spectacle
-  texmaker
   the-unarchiver
   tunnelblick
   whatsapp

@@ -25,27 +25,6 @@ ln -s ~/Dropbox/Alfred\ 3 ~/Library/Application\ Support/Alfred\ 3
 ok
 
 ###############################################################################
-# Google Chrome                                                               #
-###############################################################################
-action "Changing Google Chrome settings..."
-
-running "Disabling the backswipe on trackpad/mouse"
-defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
-defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
-ok
-
-running "Using the system-native print preview dialog"
-defaults write com.google.Chrome DisablePrintPreview -bool true; ok
-
-running "Expanding print dialog by default"
-defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true; ok
-
-running "Backing up current Chrome settings and symlinking preferred settings from Dropbox"
-mv ~/Library/Application\ Support/Google/Chrome/Default ~/Library/Application\ Support/Google/Chrome/Default_backup
-ln -s ~/Dropbox/Google\ Chrome-Default ~/Library/Application\ Support/Google/Chrome/Default
-ok
-
-###############################################################################
 # iTerm 2                                                                     #
 ###############################################################################
 action "Changing iTerm settings..."
