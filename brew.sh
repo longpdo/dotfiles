@@ -88,7 +88,7 @@ DEV_TOOLS=(
   intellij-idea
   iterm2
   java
-  java8 # java8 not available anymore
+  #java8 -> not available anymore
   pycharm
   robo-3t
   visual-studio-code
@@ -105,7 +105,6 @@ MISC=(
   android-platform-tools
   appcleaner
   bitwarden
-  discord
   firefox-developer-edition
   google-chrome
   google-backup-and-sync
@@ -125,6 +124,7 @@ MISC=(
   the-unarchiver
   tunnelblick
   whatsapp
+  zoomus
 )
 for cask in "${MISC[@]}"; do
   install_cask "$cask"
