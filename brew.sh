@@ -115,7 +115,7 @@ MISC=(
   karabiner-elements
   keepingyouawake
   kodi
-  mactex
+  mactex-no-gui
   mkvtoolnix
   musicbrainz-picard
   notion
