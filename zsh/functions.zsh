@@ -109,6 +109,8 @@ function update_all_and_cleanup() {
   gem cleanup -v
   action "Deleting `.DS_Store` files"
   find . -type f -name '*.DS_Store' -ls -delete
+  action "Backing up application settings with mackup"
+  mackup backup
 }
 
 function zsh_history_with_fzf() {
