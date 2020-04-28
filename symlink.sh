@@ -24,3 +24,7 @@ for file in $files; do
     ln -s $dir/$file ~/$file
     ok
 done
+
+action "Running mackup to restore application settings..."
+mackup restore
+ok
