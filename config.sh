@@ -48,27 +48,11 @@ running "Installing color theme for iTerm (opening file)"
 open "./themes/Dracula.itermcolors"; ok
 
 ###############################################################################
-# Karabiner                                                                   #
-###############################################################################
-action "Backing up current Karabiner settings and symlinking preferred settings from dotfiles"
-mv ~/.config/karabiner/karabiner.json ~/.config/karabiner/karabiner_backup.json
-ln -s ~/dotfiles/config/karabiner.json ~/.config/karabiner/karabiner.json
-ok
-
-###############################################################################
 # mongoDB                                                                     #
 ###############################################################################
 action "Setting up mongoDB..."
 sudo mkdir -p /data/db
 sudo chown -R `id -un` /data/db
-ok
-
-###############################################################################
-# Spectacle                                                                   #
-###############################################################################
-action "Backing up current Spectacle shortcuts and symlinking preferred shortcuts from dotfiles"
-mv ~/Library/Application\ Support/Spectacle/Shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts_backup.json
-ln -s ~/dotfiles/config/spectacle_shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
 ok
 
 ###############################################################################
@@ -88,33 +72,37 @@ action "Setting up Visual Studio Code..."
 running "Fixing VSCodeVim Key Repeat"
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
-running "Backing up current VSCode settings and symlinking preferred settings from Dropbox"
-mv ~/Library/Application\ Support/Code/User/settings.json ~/Library/Application\ Support/Code/User/settings_backup.json
-ln -s ~/dotfiles/config/vscode_settings.json ~/Library/Application\ Support/Code/User/settings.json
-
 running "Installing preferred VS Code extensions"
 CODE_EXTENSIONS=(
-  # THEMES
-  dracula-theme.theme-dracula
-  PKief.material-icon-theme
-  # FORMATTING
-  CoenraadS.bracket-pair-colorizer
+  johnpapa.angular2
   formulahendry.auto-close-tag
   formulahendry.auto-rename-tag
-  remimarsal.prettier-now
-  # PRODUCTIVITY
-  alefragnani.project-manager
-  chakrounanas.turbo-console-log
-  christian-kohler.path-intellisense
-  eamodio.gitlens
-  k--kato.intellij-idea-keybindings
-  shd101wyy.markdown-preview-enhanced
-  # CODE SNIPPETS
+  CoenraadS.bracket-pair-colorizer
+  formulahendry.code-runner
+  streetsidesoftware.code-spell-checker
+  pranaygp.vscode-css-peek
+  dracula-theme.theme-dracula
   dbaeumer.vscode-eslint
-  johnpapa.angular2
-  ms-python.python
-  ms-vscode.vscode-typescript-tslint-plugin
+  michelemelluso.gitignore
+  eamodio.gitlens
+  ecmel.vscode-html-css
+  k--kato.intellij-idea-keybindings
   xabikos.javascriptsnippets
+  james-yu.latex-workshop
+  ritwickdey.liveserver
+  yzhang.markdown-all-in-one
+  davidanson.vscode-markdownlint
+  PKief.material-icon-theme
+  metaseed.metago
+  christian-kohler.path-intellisense
+  remimarsal.prettier-now
+  alefragnani.project-manager
+  ms-python.python
+  albert.tabout
+  gruntfuggly.todo-tree
+  ms-vscode.vscode-typescript-tslint-plugin
+  chakrounanas.turbo-console-log
+  wakatime.vscode-wakatime
 )
 for ext in "${CODE_EXTENSIONS[@]}"; do
   echo "$ext"

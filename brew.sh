@@ -48,6 +48,7 @@ BINARIES=(
   fzf
   git
   jq
+  mackup
   mas
   media-info
   neovim
@@ -113,7 +114,6 @@ MISC=(
   jdownloader
   kap
   karabiner-elements
-  keepingyouawake
   kodi
   mactex-no-gui
   mkvtoolnix
@@ -163,7 +163,6 @@ install_gem_local jekyll
 ###############################################################################
 bot "Installing apps from App Store..."
 install_mas 497799835 # Xcode
-install_mas 836505650 # Battery Monitor: Health, Info
 
 ###############################################################################
 # Other apps                                                                  #
