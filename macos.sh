@@ -125,8 +125,8 @@ defaults write com.apple.dock showhidden -bool true; ok
 running "Setting dock orientation to bottom"
 defaults read com.apple.dock orientation bottom
 
-running "Setting the icon size of Dock items to 50 pixels"
-defaults write com.apple.dock tilesize -int 50; ok
+running "Setting the icon size of Dock items to 40 pixels"
+defaults write com.apple.dock tilesize -int 40; ok
 
 running "Disabling the focus ring animation"
 defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false; ok
