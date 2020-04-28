@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Include library helper for colorized echo
-source ./library/helper_echo.sh
+source ./library/helper_install.sh
 
 function runScripts() {
     # Ask for the administrator password upfront
