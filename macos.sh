@@ -3,7 +3,7 @@
 # originally from https://mths.be/macos
 
 # Include library helper for colorized echo
-source ./library/helper_echo.sh
+source ./library/helper_install.sh
 
 ###############################################################################
 # Prompt user input                                                           #
@@ -82,15 +82,6 @@ running "Removing duplicates in the “Open With” menu"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user; ok
 
 ###############################################################################
-# Desktop & Screensaver                                                       #
-###############################################################################
-action "Changing Desktop & Screensaver settings..."
-
-running "Setting wallpaper"
-# Absolute path is needed for this to work, no ~ paths possible
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Library/Desktop Pictures/Color Burst 3.jpg"'; ok
-
-###############################################################################
 # Dock                                                                        #
 ###############################################################################
 action "Changing Dock settings..."
@@ -130,6 +121,9 @@ defaults write com.apple.dock show-recents -bool false; ok
 
 running "Making icons of hidden applications translucent"
 defaults write com.apple.dock showhidden -bool true; ok
+
+running "Setting dock orientation to bottom"
+defaults read com.apple.dock orientation bottom
 
 running "Setting the icon size of Dock items to 50 pixels"
 defaults write com.apple.dock tilesize -int 50; ok
@@ -341,14 +335,6 @@ sudo nvram SystemAudioVolume=" "; ok
 ###############################################################################
 action "Organizing the menu bar..."
 
-running "Showing battery percentage in menu bar"
-defaults write com.apple.menuextra.battery ShowPercent -string "YES"; ok
-
-running "Showing digital clock and date in menu bar"
-defaults write com.apple.menuextra.clock IsAnalog -bool false
-defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm:ss"
-ok
-
 running "Hiding Siri menu bar icon and deactivating"
 defaults write com.apple.Siri StatusMenuVisible -bool false
 defaults write com.apple.Siri UserHasDeclinedEnable -bool true
@@ -360,7 +346,7 @@ defaults delete com.apple.systemuiserver "NSStatusItem Preferred Position com.ap
 defaults delete com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery"
 defaults write com.apple.systemuiserver menuExtras -array \
     "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-    "/System/Library/CoreServices/Menu Extras/Clock.menu"
+    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
 ok
 
 # needs Sytem Integrity Protection disabled to work
