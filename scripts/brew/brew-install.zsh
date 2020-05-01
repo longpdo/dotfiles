@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-# Install (one or multiple) selected brew packages
+# Install selected brew packages
+# > Select files with <Tab>
+# > Confirm with <Enter>
 
 local inst=$(brew search | fzf -m)
 

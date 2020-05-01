@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-# Install or uninstall brew casks or open the webpage for the selected application
+# [I]nstall/[U]ninstall brew casks or open the [H]omepage of the app
+# > Select files with <Tab>
+# > Confirm with <Enter>
 
 local token
 token=$(brew search --casks | fzf-tmux --query="$1" +m --preview 'brew cask info {}')

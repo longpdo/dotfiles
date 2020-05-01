@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-# Delete (one or multiple) selected brew packages
+# Uninstall selected brew packages
+# > Select files with <Tab>
+# > Confirm with <Enter>
 
 local uninst=$(brew leaves | fzf -m)
 
