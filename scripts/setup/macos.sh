@@ -3,7 +3,8 @@
 # originally from https://mths.be/macos
 
 # Include library helper for colorized echo
-source ./library/helper_install.sh
+source ./_helpers/colorized_echo.sh
+source ./_helpers/installers.sh
 
 ###############################################################################
 # Prompt user input                                                           #

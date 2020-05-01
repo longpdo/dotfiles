@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Include library helper for colorized echo
-source ./library/helper_install.sh
+source ./_helpers/colorized_echo.sh
+source ./_helpers/installers.sh
 
 # Ask for the administrator password upfront.
 sudo -v
@@ -36,8 +37,7 @@ install_tap homebrew/cask-fonts
 
 bot "Installing binaries, terminal stuff, CLI..."
 BINARIES=(
-  autojump
-  bat
+  batexa
   coreutils
   exa
   fd
@@ -52,11 +52,11 @@ BINARIES=(
   media-info
   neovim
   neofetch
+  pipx
   rename
-  ripgrep
+  ripgrep # ripgrep recursively searches directories for a regex pattern
   ruby
   scrcpy
-  the_silver_searcher
   tldr
   tokei
   trash
@@ -67,8 +67,13 @@ for brew in "${BINARIES[@]}"; do
   install_brew "$brew"
 done
 
+# TODO add pipx install
+# pigar
+# flake8
+
 bot "Installing dev environment..."
 DEV_ENV=(
+  lua
   maven
   node
   mongodb

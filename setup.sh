@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Include library helper for colorized echo
-source ./library/helper_install.sh
+# Include library helper for colorized install feedback
+source ./scripts/_helpers/installers.sh
 
 function runScripts() {
     # Ask for the administrator password upfront
@@ -15,23 +15,19 @@ function runScripts() {
     do
         if [ $ARG == "init" ] || [ $ARG == "all" ]; then
             bot "Starting init.sh script..."
-            ./init.sh
+            ./scripts/setup/init.sh
         fi
         if [ $ARG == "brew" ] || [ $ARG == "all" ]; then
             bot "Starting brew.sh script..."
-            ./brew.sh
-        fi
-        if [ $ARG == "symlink" ] || [ $ARG == "all" ]; then
-            bot "Starting symlink.sh script..."
-            ./symlink.sh
+            ./scripts/setup/brew.sh
         fi
         if [ $ARG == "macos" ] || [ $ARG == "all" ]; then
             bot "Starting macos.sh script..."
-            ./macos.sh
+            ./scripts/setup/macos.sh
         fi
         if [ $ARG == "config" ] || [ $ARG == "all" ]; then
             bot "Starting config.sh script..."
-            ./config.sh
+            ./scripts/setup/config.sh
         fi
     done
     ok "Completed running setup.sh, restart your computer to ensure all updates take effect"

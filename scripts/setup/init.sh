@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Include library helper for colorized echo
-source ./library/helper_install.sh
+source ./_helpers/colorized_echo.sh
+source ./_helpers/installers.sh
 
 # Ask for the administrator password upfront
 sudo -v

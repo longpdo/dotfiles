@@ -1,0 +1,18 @@
+romkatv/powerlevel10k
+
+# Auto-close and delete matching delimiters
+hlissner/zsh-autopair
+
+# help remembering those shell aliases and Git aliases you once defined
+djui/alias-tips
+
+trystan2k/zsh-tab-title
+
+wbingli/zsh-wakatime
+
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+
+zdharma/fast-syntax-highlighting
+# Binds Ctrl-R that searches history for multiple keywords
+zdharma/history-search-multi-word

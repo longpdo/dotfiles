@@ -22,7 +22,6 @@ There are five basic setup scripts:
 
 * `init.sh` - installs macOS software updates, [Xcode](https://developer.apple.com/xcode/), [Homebrew](https://brew.sh/), [Dropbox](https://www.dropbox.com/)
 * `brew.sh` - installs [zsh](http://zsh.sourceforge.net/) and *brew*, *brew cask*, *npm* and *ruby* packages
-* `symlink.sh` - symlinks config files from this repository to `~/` and restore the remaining application settings with `mackup`
 * `macos.sh` - setting configurations for macOS applications like *Preferences*, *Dock*, *Finder*, *Mail*, *SystemUIServer*, etc.
 * `config.sh` - setting configurations for remaining applications
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Include library helper for colorized echo
-source ./library/helper_install.sh
+source ./_helpers/colorized_echo.sh
+source ./_helpers/installers.sh
 
 # Ask for the administrator password upfront
 sudo -v
@@ -34,17 +35,12 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false; ok
 running "Disabling changing font size with pinch gesture in iTerm"
 defaults write com.googlecode.iterm2 PinchToChangeFontSizeDisabled -bool true; ok
 
-running "Loading custom iTerm settings from dotfiles folder"
-defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/dotfiles/config"
-ok
-
 #WARN This could break after zsh updates
 running "Avoiding global globurl alias of url-quote-magic"
-sudo cp ~/dotfiles/config/zsh_url-quote-magic /usr/share/zsh/5.3/functions/url-quote-magic
+sudo cp ~/dev/dotfiles/config/iTerm2/zsh_url-quote-magic /usr/share/zsh/5.3/functions/url-quote-magic
 
 running "Installing color theme for iTerm (opening file)"
-open "./themes/Dracula.itermcolors"; ok
+open "~/dev/dotfiles/config/iTerm2/Dracula.itermcolors"; ok
 
 ###############################################################################
 # mongoDB                                                                     #
