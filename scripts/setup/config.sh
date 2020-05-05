@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Include library helper for colorized echo
-source ./_helpers/colorized_echo.sh
+source ./_helpers/colorized-echo.sh
 source ./_helpers/installers.sh
 
 # Ask for the administrator password upfront

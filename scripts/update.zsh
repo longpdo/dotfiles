@@ -8,7 +8,7 @@
 # | Ruby gems
 
 # Include library helper for colorized echo
-source ~/dev/dotfiles/scripts/_helpers/colorized_echo.sh
+source ~/dev/dotfiles/scripts/_helpers/colorized-echo.sh
 
 sudo -v
 bot "Starting update script..."

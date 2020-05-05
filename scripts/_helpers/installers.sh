@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # originally from https://github.com/atomantic/dotfiles/blob/master/lib_sh
 
-source ./colorized_echo.sh
+source ./colorized-echo.sh
 
 function install_brew() {
     running "brew $1 $2"
