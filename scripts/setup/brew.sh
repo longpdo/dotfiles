@@ -184,4 +184,5 @@ bot "Cleaning up..."
 brew cleanup -v
 gem cleanup -v
 rm "$(ls | grep PortfolioPerformance)"
+rm "$(ls | grep subsync)"
 ok
