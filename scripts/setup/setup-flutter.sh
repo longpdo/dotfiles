@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Bash script to setup a Flutter development environment - until there is a complete homebrew approach
 # Dependencies: homebrew
 #
@@ -5,35 +7,49 @@
 # export INTEL_HAXM_HOME=/usr/local/Caskroom/intel-haxm
 # export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
-# asdf for dart, flutter and ruby runtimes
-brew install asdf
-brew install android-sdk
-# haxm for faster flutter rendering
-brew install haxm
-# adoptopenjdk8 for sdkmanager
-brew cask install adoptopenjdk8
+# Log Helper
+_info()    { echo -e "\033[1m[INFO]\033[0m $1" ; }
+_ok()      { echo -e "\033[32m[OK]\033[0m $1" ; }
 
-asdf plugin install dart https://github.com/patoconnor43/asdf-dart.git
-asdf plugin-add flutter
-asdf plugin install ruby https://github.com/asdf-vm/asdf-ruby.git
+_info "Installing asdf for dart, flutter and ruby runtimes"
+brew install asdf && _ok ""
 
-asdf install dart 2.7.0
-asdf install flutter 1.12.13+hotfix.7-stable
-asdf install ruby 2.3.7
+_info "Installing android-sdk"
+brew install android-sdk && _ok ""
 
-asdf global dart 2.7.0
-asdf global flutter 1.12.13+hotfix.7-stable
-asdf global ruby 2.3.7
+_info "Installing haxm for faster flutter rendering"
+brew install haxm && _ok ""
 
+_info "Installing adoptopenjdk8 for sdkmanager"
+brew cask install adoptopenjdk8 && _ok ""
+
+_info "Installing asdf plugins for dart, flutter and ruby"
+asdf plugin install dart https://github.com/patoconnor43/asdf-dart.git && _ok ""
+asdf plugin-add flutter && _ok ""
+asdf plugin install ruby https://github.com/asdf-vm/asdf-ruby.git && _ok ""
+
+_info "Installing versions of dart, flutter and ruby"
+asdf install dart 2.7.0 && _ok ""
+asdf install flutter 1.12.13+hotfix.7-stable && _ok ""
+asdf install ruby 2.3.7 && _ok ""
+
+_info "Setting global version for dart, flutter and ruby"
+asdf global dart 2.7.0 && _ok ""
+asdf global flutter 1.12.13+hotfix.7-stable && _ok ""
+asdf global ruby 2.3.7 && _ok ""
+
+_info "Installing cocoapods"
 # Install -v 1.7.5 if pod setup does not work
-gem install cocoapods
+gem install cocoapods && _ok ""
 
-pod setup
+_info "Running pod setup"
+pod setup && _ok ""
 
-sudo xcodebuild -license
-flutter doctor --android-licenses
+_info "Accepting licenses"
+sudo xcodebuild -license && _ok ""
+flutter doctor --android-licenses && _ok ""
 
-# Check if all dependencies are installed
-sdkmanager
+_info "Checking if all dependencies are installed"
+sdkmanager && _ok ""
 
-flutter doctor -v
+flutter doctor -v && _ok ""
