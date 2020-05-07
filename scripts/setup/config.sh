@@ -91,6 +91,7 @@ CODE_EXTENSIONS=(
   remimarsal.prettier-now
   alefragnani.project-manager
   ms-python.python
+  timonwong.shellcheck
   albert.tabout
   gruntfuggly.todo-tree
   ms-vscode.vscode-typescript-tslint-plugin
