@@ -1,8 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Include library helper for colorized echo
-source ./_helpers/colorized-echo.sh
-source ./_helpers/installers.sh
+# Log Helper
+_info()    { echo -e "\033[1m[INFO]\033[0m $1" ; }
+_ok()      { echo -e "\033[32m[OK]\033[0m $1" ; }
+_error()   { echo -e "\033[31m[ERROR]\033[0m $1" ; }
 
 # Ask for the administrator password upfront.
 sudo -v
@@ -13,30 +14,28 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 # ZSH                                                                         #
 ###############################################################################
-bot "Installing zsh..."
-install_brew zsh
+_info "Installing zsh..."
+brew install zsh || _error "failed installing zsh"
 
-action "Installing antibody..."
+_info "Installing antibody..."
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 
-running "Installing the Tomorrow Night theme for iTerm (opening file)"
-open "./themes/Dracula.itermcolors"
-ok
+_info "Installing the Tomorrow Night theme for iTerm (opening file)"
+open "./themes/Dracula.itermcolors" && _ok ""
 
-running "Setting ZSH as the default shell environment"
+_info "Setting ZSH as the default shell environment"
 sudo sh -c "echo $(which zsh) >> /etc/shells"
-chsh -s $(which zsh)
-ok
+chsh -s "$(which zsh)" && _ok ""
 
 ###############################################################################
 # Homebrew                                                                    #
 ###############################################################################
-bot "Adding taps to brew..."
-install_tap caskroom/versions
-install_tap homebrew/cask-fonts
+_info "Adding taps to brew..."
+brew tap caskroom/versions || _error "failed brew tap caskroom/versions"
+brew tap homebrew/cask-fonts || _error "failed brew tap homebrew/cask-fonts"
 
-bot "Installing binaries, terminal stuff, CLI..."
-BINARIES=(
+_info "Installing binaries, terminal stuff, CLI..."
+_BINARIES=(
   batexa
   coreutils
   exa
@@ -54,7 +53,7 @@ BINARIES=(
   neofetch
   pipx
   rename
-  ripgrep # ripgrep recursively searches directories for a regex pattern
+  ripgrep
   ruby
   scrcpy
   tldr
@@ -63,30 +62,32 @@ BINARIES=(
   wget
   youtube-dl
 )
-for brew in "${BINARIES[@]}"; do
-  install_brew "$brew"
+for brew in "${_BINARIES[@]}"; do
+  _info "installing $brew"
+  brew install "$brew" || error "failed brew install $brew"
 done
 
 # TODO add pipx install
 # pigar
 # flake8
 
-bot "Installing dev environment..."
-DEV_ENV=(
+_info "Installing dev environment..."
+_DEV_LIBRARIES=(
   lua
   maven
   node
   mongodb
 )
-for brew in "${DEV_ENV[@]}"; do
-  install_brew "$brew"
+for brew in "${_DEV_LIBRARIES[@]}"; do
+  _info "installing $brew"
+  brew install "$brew" || error "failed brew install $brew"
 done
 
-bot "Installing fonts..."
-install_cask font-firacode-nerd-font-mono
+_info "Installing fonts..."
+brew cask install font-firacode-nerd-font-mono || error "failed installing fonts"
 
-bot "Installing dev tool casks..."
-DEV_TOOLS=(
+_info "Installing dev tool casks..."
+_DEV_CASKS=(
   android-studio
   chromedriver
   insomnia
@@ -99,13 +100,14 @@ DEV_TOOLS=(
   visual-studio-code
   webstorm
 )
-for cask in "${DEV_TOOLS[@]}"; do
-  install_cask "$cask"
+for cask in "${_DEV_CASKS[@]}"; do
+  _info "installing $cask"
+  brew cask install "$cask" || error "failed brew cask install $cask"
 done
 
-bot "Installing misc casks..."
+_info "Installing misc casks..."
 # Dropbox was already installed via update.sh
-MISC=(
+_MISC_CASKS=(
   alfred
   android-platform-tools
   appcleaner
@@ -130,59 +132,60 @@ MISC=(
   whatsapp
   zoomus
 )
-for cask in "${MISC[@]}"; do
-  install_cask "$cask"
+for cask in "${_MISC_CASKS[@]}"; do
+  _info "installing $cask"
+  brew cask install "$cask" || error "failed brew cask install $cask"
 done
 
-bot "Installing quick look plugins..."
+_info "Installing quick look plugins..."
 # Reference: https://github.com/sindresorhus/quick-look-plugins/blob/master/readme.md
-PLUGINS=(
+_PLUGINS=(
   qlcolorcode
   qlstephen
   qlmarkdown
   quicklook-json
   qlvideo
 )
-for cask in "${PLUGINS[@]}"; do
-  install_cask "$cask"
+for cask in "${_PLUGINS[@]}"; do
+  _info "installing $cask"
+  brew cask install "$cask" || error "failed brew cask install $cask"
 done
 
 ###############################################################################
 # npm                                                                         #
 ###############################################################################
-bot "Installing npm packages..."
-install_npm @angular/cli
-install_npm fkill-cli
-install_npm typescript
+_info "Installing npm packages..."
+npm install -g @angular/cli || _error "failed npm install @angular/cli"
+npm install -g fkill-cli || _error "failed npm install fkill-cli"
+npm install -g typescript || _error "failed npm install typescript"
 
 ###############################################################################
 # Ruby                                                                        #
 ###############################################################################
-bot "Installing ruby packages..."
-install_gem_local bundler
-install_gem_local jekyll
+_info "Installing ruby packages..."
+gem install --user-install bundler || _error "failed gem install bundler"
+gem install --user-install jekyll || _error "failed gem install jekyll"
 
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
-bot "Installing apps from App Store..."
-install_mas 497799835 # Xcode
+_info "Installing apps from App Store..."
+mas install 497799835 || _error "failed mas install Xcode" # Xcode
 
 ###############################################################################
 # Other apps                                                                  #
 ###############################################################################
-action "Downloading latest release of Portfolio Performance..."
-curl -LO "$(curl -s https://api.github.com/repos/buchen/portfolio/releases/latest \
-| grep browser_download_url | grep '.dmg' | head -n 1 | cut -d '"' -f 4)"
+cd ~/Downloads && _info "changed directory to ~/Downloads"
 
-action "Downloading latest release of subsync..."
-curl -LO "$(curl -s https://api.github.com/repos/sc0ty/subsync/releases \
-| grep browser_download_url | grep 'mac' | head -n 1 | cut -d '"' -f 4)"
+_info "Downloading latest release of Portfolio Performance..."
+curl -LO "$(curl -s https://api.github.com/repos/buchen/portfolio/releases/latest | grep browser_download_url | grep '.dmg' | head -n 1 | cut -d '"' -f 4)" || _error "failed curl of Porfolio Performance"
 
-bot "Cleaning up..."
+_info "Downloading latest release of subsync..."
+curl -LO "$(curl -s https://api.github.com/repos/sc0ty/subsync/releases | grep browser_download_url | grep 'mac' | head -n 1 | cut -d '"' -f 4)" || _error "failed curl of subsync"
+
+cd - && _info "changed directory back to original location"
+
+_info "Cleaning up..."
 # Remove unused brew dependencies
-brew cleanup -v
-gem cleanup -v
-rm "$(ls | grep PortfolioPerformance)"
-rm "$(ls | grep subsync)"
-ok
+brew cleanup -v && _ok ""
+gem cleanup -v && _ok ""

@@ -1,10 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # originally from https://mths.be/macos
 
-# Include library helper for colorized echo
-source ./_helpers/colorized-echo.sh
-source ./_helpers/installers.sh
+# Log Helper
+_info()    { echo -e "\033[1m[INFO]\033[0m $1" ; }
+_ok()      { echo -e "\033[32m[OK]\033[0m $1" ; }
+_error()   { echo -e "\033[31m[ERROR]\033[0m $1" ; }
 
 ###############################################################################
 # Prompt user input                                                           #
@@ -15,669 +16,619 @@ sudo -v
 # Keep-alive: update existing sudo time stamp until script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-bot "These first changes request your input... \n"
+_info "These first changes request your input... \n"
 
 read -r -p "Do you want to change your computer and host name? [y|N] " response
 if [[ $response =~ (yes|y|Y) ]];then
-		read -r -p "Computer: change $(sudo scutil --get ComputerName) to: " computerName
-		sudo scutil --set ComputerName $computerName
-		ok
-		read -r -p "Localhost: change $(sudo scutil --get LocalHostName) to: " localHostName
-		sudo scutil --set LocalHostName $localHostName
-		ok
+		read -r -p "Computer: change $(sudo scutil --get ComputerName) to: " _computer_name
+		sudo scutil --set ComputerName "$_computer_name" && _ok "changed computer name"
+		read -r -p "Localhost: change $(sudo scutil --get LocalHostName) to: " _local_host_name
+		sudo scutil --set LocalHostName "$_local_host_name" && _ok "changed host name"
 else
-    ok "skipped";
+    _ok "skipped";
 fi
 
 read -r -p "Do you want to overwrite /etc/hosts with the ad-blocking hosts file from someonewhocares.org [y|N] " response
 if [[ $response =~ (yes|y|Y) ]];then
-		running "Backing up current /etc/hosts to /etc/hosts.backup"
-		sudo cp /etc/hosts /etc/hosts.backup; ok
-		running "Overwriting /etc/hosts"
-		sudo cp ./config/hosts /etc/hosts; ok
-		ok
+		_info "Backing up current /etc/hosts to /etc/hosts.backup"
+		sudo cp /etc/hosts /etc/hosts.backup && _ok "backed up hosts"
+		_info "Overwriting /etc/hosts"
+		sudo cp ./config/hosts /etc/hosts && _ok "overwrote hosts"
 else
-    ok "skipped";
+    _ok "skipped";
 fi
 
-action "Closing any open System Preferences panes..."
+_info "Closing any open System Preferences panes..."
 osascript -e 'tell application "System Preferences" to quit'
-ok
 
 ###############################################################################
 # General                                                                     #
 ###############################################################################
-action "Changing General settings..."
+_info "Changing General settings..."
 
-running "Disabling the crash reporter"
-defaults write com.apple.CrashReporter DialogType -string "none"; ok
+_info "Disabling the crash reporter"
+defaults write com.apple.CrashReporter DialogType -string "none" || _error ""
 
-running "Setting Help Viewer windows to non-floating mode"
-defaults write com.apple.helpviewer DevMode -bool true; ok
+_info "Setting Help Viewer windows to non-floating mode"
+defaults write com.apple.helpviewer DevMode -bool true || _error ""
 
-running "Disabling the “Are you sure you want to open this application?” dialog"
-defaults write com.apple.LaunchServices LSQuarantine -bool false; ok
+_info "Disabling the 'Are you sure you want to open this application?' dialog"
+defaults write com.apple.LaunchServices LSQuarantine -bool false || _error ""
 
-running "Setting highlight color to green"
-defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"; ok
+_info "Setting highlight color to green"
+defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600" || _error ""
 
-running "Enabling dark mode"
-defaults write NSGlobalDomain AppleInterfaceStyle Dark; ok
+_info "Enabling dark mode"
+defaults write NSGlobalDomain AppleInterfaceStyle Dark || _error ""
 
-running "Changing scrollbars to Always"
-defaults write NSGlobalDomain AppleShowScrollBars -string "Always"; ok
+_info "Changing scrollbars to Always"
+defaults write NSGlobalDomain AppleShowScrollBars -string "Always" || _error ""
 
-running "Disabling automatic termination of inactive apps"
-defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true; ok
+_info "Disabling automatic termination of inactive apps"
+defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true || _error ""
 
-running "Saving to disk (not to iCloud) by default"
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false; ok
+_info "Saving to disk (not to iCloud) by default"
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false || _error ""
 
-running "Increasing window resize speed for Cocoa applications"
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001; ok
+_info "Increasing window resize speed for Cocoa applications"
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001 || _error ""
 
-running "Disabling SSD hibernation (speeds up entering sleep mode)"
-sudo pmset -a hibernatemode 0; ok
+_info "Disabling SSD hibernation (speeds up entering sleep mode)"
+sudo pmset -a hibernatemode 0 || _error ""
 
-running "Removing duplicates in the “Open With” menu"
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user; ok
+_info "Removing duplicates in the 'Open With' menu"
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user || _error ""
 
 ###############################################################################
 # Dock                                                                        #
 ###############################################################################
-action "Changing Dock settings..."
+_info "Changing Dock settings..."
 
-running "Enabling autohiding"
-defaults write com.apple.dock autohide -bool true; ok
+_info "Enabling autohiding"
+defaults write com.apple.dock autohide -bool true || _error ""
 
-running "Removing the auto-hiding Dock delay"
-defaults write com.apple.dock autohide-delay -float 0; ok
+_info "Removing the auto-hiding Dock delay"
+defaults write com.apple.dock autohide-delay -float 0 || _error ""
 
-running "Removing the animation when hiding/showing the Dock"
-defaults write com.apple.dock autohide-time-modifier -float 0; ok
+_info "Removing the animation when hiding/showing the Dock"
+defaults write com.apple.dock autohide-time-modifier -float 0 || _error ""
 
-running "Enabling spring loading for all Dock items"
-defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true; ok
+_info "Enabling spring loading for all Dock items"
+defaults write com.apple.dock enable-spring-load-infos-on-all-items -bool true || _error ""
 
-running "Disabling opening apps animations from the Dock"
-defaults write com.apple.dock launchanim -bool false; ok
+_info "Disabling opening apps animations from the Dock"
+defaults write com.apple.dock launchanim -bool false || _error ""
 
-running "Changing minimize window effect to scale"
-defaults write com.apple.dock mineffect -string "scale"; ok
+_info "Changing minimize window effect to scale"
+defaults write com.apple.dock mineffect -string "scale" || _error ""
 
-running "Minimizing windows into their application’s icon"
-defaults write com.apple.dock minimize-to-application -bool true; ok
+_info "Minimizing windows into their application’s icon"
+defaults write com.apple.dock minimize-to-application -bool true || _error ""
 
-running "Enabling highlight hover effect for the grid view of a stack"
-defaults write com.apple.dock mouse-over-hilite-stack -bool true; ok
+_info "Enabling highlight hover effect for the grid view of a stack"
+defaults write com.apple.dock mouse-over-hilite-stack -bool true || _error ""
 
-running "Wiping all (default) app icons"
-defaults write com.apple.dock persistent-apps -array; ok
+_info "Wiping all (default) app icons"
+defaults write com.apple.dock persistent-apps -array || _error ""
 
-running "Showing indicator lights for open application"
-defaults write com.apple.dock show-process-indicators -bool true; ok
+_info "Showing indicator lights for open application"
+defaults write com.apple.dock show-process-indicators -bool true || _error ""
 
-running "Removing recent applications"
-defaults write com.apple.dock show-recents -bool false; ok
+_info "Removing recent applications"
+defaults write com.apple.dock show-recents -bool false || _error ""
 
-running "Making icons of hidden applications translucent"
-defaults write com.apple.dock showhidden -bool true; ok
+_info "Making icons of hidden applications translucent"
+defaults write com.apple.dock showhidden -bool true || _error ""
 
-running "Setting dock orientation to bottom"
-defaults read com.apple.dock orientation bottom
+_info "Setting dock orientation to bottom"
+defaults read com.apple.dock orientation bottom || _error ""
 
-running "Setting the icon size of Dock items to 40 pixels"
-defaults write com.apple.dock tilesize -int 40; ok
+_info "Setting the icon size of Dock items to 40 pixels"
+defaults write com.apple.dock tilesize -int 40 || _error ""
 
-running "Disabling the focus ring animation"
-defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false; ok
+_info "Disabling the focus ring animation"
+defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false || _error ""
 
 ###############################################################################
 # Mission Control                                                             #
 ###############################################################################
-action "Changing Mission Control settings..."
+_info "Changing Mission Control settings..."
 
-running "Disabling Dashboard"
-defaults write com.apple.dashboard mcx-disabled -bool true; ok
+_info "Disabling Dashboard"
+defaults write com.apple.dashboard mcx-disabled -bool true || _error ""
 
-running "Removing Dashboard as a Space"
-defaults write com.apple.dock dashboard-in-overlay -bool true; ok
+_info "Removing Dashboard as a Space"
+defaults write com.apple.dock dashboard-in-overlay -bool true || _error ""
 
-running "Speeding up Mission Control animation"
-defaults write com.apple.dock expose-animation-duration -float 0.1; ok
+_info "Speeding up Mission Control animation"
+defaults write com.apple.dock expose-animation-duration -float 0.1 || _error ""
 
-running "Disabling grouping windows by application in Mission Control"
-defaults write com.apple.dock expose-group-by-app -bool false; ok
+_info "Disabling grouping windows by application in Mission Control"
+defaults write com.apple.dock expose-group-by-app -bool false || _error ""
 
-running "Disabling rearranging of Spaces based on recent usage"
-defaults write com.apple.dock mru-spaces -bool false; ok
+_info "Disabling rearranging of Spaces based on recent usage"
+defaults write com.apple.dock mru-spaces -bool false || _error ""
 
 ###############################################################################
 # Language & Region                                                           #
 ###############################################################################
-action "Changing Language & Region settings..."
+_info "Changing Language & Region settings..."
 
-running "Setting timezone to Europe/Berlin"
-sudo systemsetup -settimezone "Europe/Berlin" > /dev/null; ok
+_info "Setting timezone to Europe/Berlin"
+sudo systemsetup -settimezone "Europe/Berlin" > /dev/null || _error ""
 
 ###############################################################################
 # Security                                                                    #
 ###############################################################################
-action "Changing Security settings..."
+_info "Changing Security settings..."
 
-running "Enabling Firewall"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on; ok
+_info "Enabling Firewall"
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on || _error ""
 
-running "Blocking all incoming connections"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setblockall on; ok
+_info "Blocking all incoming connections"
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setblockall on || _error ""
 
-running "Whitelisting java from the Firewall"
-currentJavaHome=$(/usr/libexec/java_home)
-currentJavaHome=$currentJavaHome"/bin/java"
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $currentJavaHome
-ok
+_info "Whitelisting java from the Firewall"
+_currentJavaHome=$(/usr/libexec/java_home)
+_currentJavaHome="$_currentJavaHome/bin/java"
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "$_currentJavaHome" || _error ""
 
-running "Disabling remote apple events"
-sudo systemsetup -setremoteappleevents off; ok
+_info "Disabling remote apple events"
+sudo systemsetup -setremoteappleevents off || _error ""
 
-running "Disabling remote login"
-sudo systemsetup -setremotelogin off; ok
+_info "Disabling remote login"
+sudo systemsetup -setremotelogin off || _error ""
 
-running "Restarting automatically if the computer freezes"
-sudo systemsetup -setrestartfreeze on; ok
+_info "Restarting automatically if the computer freezes"
+sudo systemsetup -setrestartfreeze on || _error ""
 
-running "Disabling wake-on modem"
-sudo systemsetup -setwakeonmodem off; ok
+_info "Disabling wake-on modem"
+sudo systemsetup -setwakeonmodem off || _error ""
 
-running "Disabling wake-on LAN"
-sudo systemsetup -setwakeonnetworkaccess off; ok
+_info "Disabling wake-on LAN"
+sudo systemsetup -setwakeonnetworkaccess off || _error ""
 
 ###############################################################################
 # Monitors                                                                    #
 ###############################################################################
-action "Changing Monitors settings..."
+_info "Changing Monitors settings..."
 
-running "Activating night shift"
-plistLoc="/private/var/root/Library/Preferences/com.apple.CoreBrightness.plist"
-currentUserUID=$(dscl . -read /Users/$(whoami)/ GeneratedUID) # Get the GeneratedUID for the current user
-currentUserUID=$(echo $currentUserUID | cut -d' ' -f2) # Remove the "GeneratedUID: " part
-currentUserUID="CBUser-"$currentUserUID # Append the prefix
-sudo /usr/libexec/PlistBuddy -c "Set :$currentUserUID:CBBlueReductionStatus:BlueReductionMode 1" $plistLoc
-ok
-
-running "Enabling subpixel font rendering on non-Apple LCDs"
+_info "Enabling subpixel font rendering on non-Apple LCDs"
 # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
-defaults write NSGlobalDomain AppleFontSmoothing -int 1; ok
+defaults write NSGlobalDomain AppleFontSmoothing -int 1 || _error ""
 
 ###############################################################################
 # Keyboard                                                                    #
 ###############################################################################
-action "Changing Keyboard settings..."
+_info "Changing Keyboard settings..."
 
-running "Enabling full keyboard access for all controls"
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3; ok
+_info "Enabling full keyboard access for all controls"
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3 || _error ""
 
-running "Disabling press-and-hold for keys in favor of key repeat"
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false; ok
+_info "Disabling press-and-hold for keys in favor of key repeat"
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false || _error ""
 
-running "Setting fast keyboard repeat rate"
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 12
-ok
+_info "Setting fast keyboard repeat rate"
+defaults write NSGlobalDomain KeyRepeat -int 1 || _error ""
+defaults write NSGlobalDomain InitialKeyRepeat -int 12 || _error ""
 
-running "Disabling automatic capitalization"
-defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false; ok
+_info "Disabling automatic capitalization"
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false || _error ""
 
-running "Disabling smart dashes"
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false; ok
+_info "Disabling smart dashes"
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false || _error ""
 
-running "Disabling automatic period substitution"
-defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false; ok
+_info "Disabling automatic period substitution"
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false || _error ""
 
-running "Disabling smart quotes"
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false; ok
+_info "Disabling smart quotes"
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false || _error ""
 
-running "Disabling auto-correct"
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false; ok
+_info "Disabling auto-correct"
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false || _error ""
 
 # needs Sytem Integrity Protection disabled to work
-running "Stopping iTunes from responding to the keyboard media keys"
-launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null; ok
+_info "Stopping iTunes from responding to the keyboard media keys"
+launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null || _error ""
 
 ###############################################################################
 # Mouse                                                                       #
 ###############################################################################
-action "Changing Mouse settings..."
+_info "Changing Mouse settings..."
 
-running "Setting mouse tracking speed"
-defaults write NSGlobalDomain com.apple.mouse.scaling -float 3.0; ok
+_info "Setting mouse tracking speed"
+defaults write NSGlobalDomain com.apple.mouse.scaling -float 3.0 || _error ""
 
 ###############################################################################
 # Trackpad                                                                    #
 ###############################################################################
-action "Changing Trackpad settings..."
+_info "Changing Trackpad settings..."
 
-running "Setting trackpad tracking speed"
-defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.0; ok
+_info "Setting trackpad tracking speed"
+defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.0 || _error ""
 
-running "Enabling trackpad tap to click"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-ok
+_info "Enabling trackpad tap to click"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true || _error ""
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 || _error ""
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1 || _error ""
 
-running "Mapping trackpad bottom right corner to right-click"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
-ok
+_info "Mapping trackpad bottom right corner to right-click"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2 || _error ""
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true || _error ""
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1 || _error ""
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true || _error ""
 
-running "Disabling “natural” scrolling"
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false; ok
+_info "Disabling 'natural' scrolling"
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false || _error ""
 
-running "Disabling the Launchpad gesture (pinch with thumb and three fingers)"
-defaults write com.apple.dock showLaunchpadGestureEnabled -int 0; ok
+_info "Disabling the Launchpad gesture (pinch with thumb and three fingers)"
+defaults write com.apple.dock showLaunchpadGestureEnabled -int 0 || _error ""
 
 ###############################################################################
 # Printer & Scanner                                                           #
 ###############################################################################
-action "Changing Printer & Scanner settings..."
+_info "Changing Printer & Scanner settings..."
 
-running "Expanding save and print panel by default"
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
-ok
+_info "Expanding save and print panel by default"
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true || _error ""
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true || _error ""
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true || _error ""
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true || _error ""
 
-running "Automatically quit printer app once the print jobs complete"
-defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true; ok
+_info "Automatically quit printer app once the print jobs complete"
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true || _error ""
 
 ###############################################################################
 # Audio                                                                       #
 ###############################################################################
-action "Changing Audio settings..."
+_info "Changing Audio settings..."
 
-running "Increasing sound quality for Bluetooth headsets"
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40; ok
+_info "Increasing sound quality for Bluetooth headsets"
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40 || _error ""
 
 ###############################################################################
 # Time Machine                                                                #
 ###############################################################################
-action "Changing Time Machine settings..."
+_info "Changing Time Machine settings..."
 
-running "Preventing Time Machine to use new hard drives as backup volume"
-defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true; ok
+_info "Preventing Time Machine to use new hard drives as backup volume"
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true || _error ""
 
-running "Disable automatic Time Machine backups"
-hash tmutil &> /dev/null && sudo tmutil disable
+_info "Disable automatic Time Machine backups"
+hash tmutil &> /dev/null && sudo tmutil disable && _ok ""
 
 ###############################################################################
 # Booting, Login Window                                                       #
 ###############################################################################
-running "Disabling guest account login"
-sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false; ok
+_info "Disabling guest account login"
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false || _error ""
 
-running "Showing language menu in the top right corner of the boot screen"
-sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true; ok
+_info "Showing language menu in the top right corner of the boot screen"
+sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true || _error ""
 
-running "Revealing IP address, hostname, OS version, etc. in the login window"
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName; ok
+_info "Revealing IP address, hostname, OS version, etc. in the login window"
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName || _error ""
 
-running "Booting always in verbose mode (not MacOS GUI mode)"
-sudo nvram boot-args="-v"; ok
+_info "Booting always in verbose mode (not MacOS GUI mode)"
+sudo nvram boot-args="-v" || _error ""
 
-running "Disabling the sound effects on boot"
-sudo nvram SystemAudioVolume=" "; ok
+_info "Disabling the sound effects on boot"
+sudo nvram SystemAudioVolume=" " || _error ""
 
 ###############################################################################
 # Menu Bar                                                                    #
 ###############################################################################
-action "Organizing the menu bar..."
+_info "Organizing the menu bar..."
 
-running "Hiding Siri menu bar icon and deactivating"
-defaults write com.apple.Siri StatusMenuVisible -bool false
-defaults write com.apple.Siri UserHasDeclinedEnable -bool true
-defaults write com.apple.assistant.support 'Assistant Enabled' 0
-ok
+_info "Hiding Siri menu bar icon and deactivating"
+defaults write com.apple.Siri StatusMenuVisible -bool false || _error ""
+defaults write com.apple.Siri UserHasDeclinedEnable -bool true || _error ""
+defaults write com.apple.assistant.support 'Assistant Enabled' 0 || _error ""
 
-running "Displaying only Airport and Clock in menu bar"
-defaults delete com.apple.systemuiserver "NSStatusItem Preferred Position com.apple.menuextra.battery"
-defaults delete com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery"
-defaults write com.apple.systemuiserver menuExtras -array \
-    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
-ok
-
-# needs Sytem Integrity Protection disabled to work
-running "Removing Spotlight icon from menu bar"
-currentDir=$(pwd)
-cd /System/Library/CoreServices/Spotlight.app/Contents/MacOS
-sudo cp Spotlight Spotlight.bak
-sudo perl -pi -e 's|(\x00\x00\x00\x00\x00\x00\x47\x40\x00\x00\x00\x00\x00\x00)\x42\x40(\x00\x00\x80\x3f\x00\x00\x70\x42)|$1\x00\x00$2|sg' Spotlight
-sudo codesign -f -s - Spotlight
-cd $currentDir
-ok
+_info "Displaying only Airport and Clock in menu bar"
+defaults delete com.apple.systemuiserver "NSStatusItem Preferred Position com.apple.menuextra.battery" || _error ""
+defaults delete com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery" || _error ""
+defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" || _error ""
 
 ###############################################################################
 # Screenshots                                                                 #
 ###############################################################################
-action "Changing screenshot behaviour..."
+_info "Changing screenshot behaviour..."
 
-running "Saving screenshots to the desktop"
-defaults write com.applse.screencapture location -string "${HOME}/Desktop"; ok
+_info "Saving screenshots to the desktop"
+defaults write com.applse.screencapture location -string "${HOME}/Desktop" || _error ""
 
-running "Changing screenshots to PNG format"
-defaults write com.apple.screencapture type -string "png"; ok
+_info "Changing screenshots to PNG format"
+defaults write com.apple.screencapture type -string "png" || _error ""
 
-running "Disabling shadow in screenshots"
-defaults write com.apple.screencapture disable-shadow -bool true; ok
+_info "Disabling shadow in screenshots"
+defaults write com.apple.screencapture disable-shadow -bool true || _error ""
 
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
-action "Changing Finder settings..."
+_info "Changing Finder settings..."
 
-running "Avoiding creating .DS_Store files on network or USB volumes"
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
-ok
+_info "Avoiding creating .DS_Store files on network or USB volumes"
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true || _error ""
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true || _error ""
 
-running "Displaying full POSIX path as Finders window title"
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true; ok
+_info "Displaying full POSIX path as Finders window title"
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true || _error ""
 
-running "Keeping folders on top when sorting by name"
-defaults write com.apple.finder _FXSortFoldersFirst -bool true; ok
+_info "Keeping folders on top when sorting by name"
+defaults write com.apple.finder _FXSortFoldersFirst -bool true || _error ""
 
-running "Showing all hidden files"
-defaults write com.apple.finder AppleShowAllFiles true; ok
+_info "Showing all hidden files"
+defaults write com.apple.finder AppleShowAllFiles true || _error ""
 
-running "Disabling window animations and Get Info animations"
-defaults write com.apple.finder DisableAllAnimations -bool true; ok
+_info "Disabling window animations and Get Info animations"
+defaults write com.apple.finder DisableAllAnimations -bool true || _error ""
 
-running "Changing source for search to current folder"
-defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"; ok
+_info "Changing source for search to current folder"
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf" || _error ""
 
-running "Disabling the warning when changing a file extension"
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false; ok
+_info "Disabling the warning when changing a file extension"
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false || _error ""
 
-running "Expanding the File Info panes"
+_info "Expanding the File Info panes"
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
 	General -bool true \
 	OpenWith -bool true \
-	Privileges -bool true
-ok
+	Privileges -bool true || _error ""
 
-running "Changing to list view in all Finder windows by default"
-defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"; ok
+_info "Changing to list view in all Finder windows by default"
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv" || _error ""
 
-running "Setting Downloads as the default location for new windows"
-defaults write com.apple.finder NewWindowTarget -string "PfLo"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Downloads/"
-ok
+_info "Setting Downloads as the default location for new windows"
+defaults write com.apple.finder NewWindowTarget -string "PfLo" || _error ""
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Downloads/" || _error ""
 
-running "Allowing text selection in Quick Look"
-defaults write com.apple.finder QLEnableTextSelection -bool true; ok
+_info "Allowing text selection in Quick Look"
+defaults write com.apple.finder QLEnableTextSelection -bool true || _error ""
 
-running "Allowing Finder quitting via ⌘ + Q"
-defaults write com.apple.finder QuitMenuItem -bool true; ok
+_info "Allowing Finder quitting via ⌘ + Q"
+defaults write com.apple.finder QuitMenuItem -bool true || _error ""
 
-running "Hiding all hard drive and server icons from desktop"
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
-defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
-ok
+_info "Hiding all hard drive and server icons from desktop"
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false || _error ""
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false || _error ""
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool false || _error ""
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false || _error ""
 
-running "Showing Finder path bar"
-defaults write com.apple.finder ShowPathbar -bool true; ok
+_info "Showing Finder path bar"
+defaults write com.apple.finder ShowPathbar -bool true || _error ""
 
-running "Showing Finder status bar"
-defaults write com.apple.finder ShowStatusBar -bool true; ok
+_info "Showing Finder status bar"
+defaults write com.apple.finder ShowStatusBar -bool true || _error ""
 
-running "Disabling the warning before emptying the Trash"
-defaults write com.apple.finder WarnOnEmptyTrash -bool false; ok
+_info "Disabling the warning before emptying the Trash"
+defaults write com.apple.finder WarnOnEmptyTrash -bool false || _error ""
 
-running "Disabling disk image verification"
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
-ok
+_info "Disabling disk image verification"
+defaults write com.apple.frameworks.diskimages skip-verify -bool true || _error ""
+defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true || _error ""
+defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true || _error ""
 
-running "Opening new window when a volume is mounted"
-defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
-defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
-ok
+_info "Opening new window when a volume is mounted"
+defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true || _error ""
+defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true || _error ""
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true || _error ""
 
-running "Enabling AirDrop over Ethernet"
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true; ok
+_info "Enabling AirDrop over Ethernet"
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true || _error ""
 
-running "Disabling spring loading for directories"
-defaults write NSGlobalDomain com.apple.springing.enabled -bool false; ok
+_info "Disabling spring loading for directories"
+defaults write NSGlobalDomain com.apple.springing.enabled -bool false || _error ""
 
-running "Showing all filename extensions in Finder"
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true; ok
+_info "Showing all filename extensions in Finder"
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true || _error ""
 
-running "Setting Finder sidebar icon size to medium"
-defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1; ok
+_info "Setting Finder sidebar icon size to medium"
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1 || _error ""
 
-running "Showing the ~/Library folder"
-chflags nohidden ~/Library; ok
+_info "Showing the ~/Library folder"
+chflags nohidden ~/Library || _error ""
 
-running "Showing the /Volumes folder"
-sudo chflags nohidden /Volumes; ok
+_info "Showing the /Volumes folder"
+sudo chflags nohidden /Volumes || _error ""
 
 ###############################################################################
 # Activity Monitor, Address Book, Disk Utility, TextEdit                      #
 ###############################################################################
-action "Changing Apple Apps settings..."
+_info "Changing Apple Apps settings..."
 
-running "Visualizing CPU usage in Activity Monitor Dock icon"
-defaults write com.apple.ActivityMonitor IconType -int 5; ok
+_info "Visualizing CPU usage in Activity Monitor Dock icon"
+defaults write com.apple.ActivityMonitor IconType -int 5 || _error ""
 
-running "Showing the main window after launching Activity Monitor"
-defaults write com.apple.ActivityMonitor OpenMainWindow -bool true; ok
+_info "Showing the main window after launching Activity Monitor"
+defaults write com.apple.ActivityMonitor OpenMainWindow -bool true || _error ""
 
-running "Showing all processes in Activity Monitor"
-defaults write com.apple.ActivityMonitor ShowCategory -int 0; ok
+_info "Showing all processes in Activity Monitor"
+defaults write com.apple.ActivityMonitor ShowCategory -int 0 || _error ""
 
-running "Sorting results by CPU usage in Activity Monitor"
-defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
-defaults write com.apple.ActivityMonitor SortDirection -int 0
-ok
+_info "Sorting results by CPU usage in Activity Monitor"
+defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage" || _error ""
+defaults write com.apple.ActivityMonitor SortDirection -int 0 || _error ""
 
-running "Enabling the debug menu in Adress Book"
-defaults write com.apple.addressbook ABShowDebugMenu -bool true; ok
+_info "Enabling the debug menu in Adress Book"
+defaults write com.apple.addressbook ABShowDebugMenu -bool true || _error ""
 
-running "Enabling the debug menu in Disk Utility"
-defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
-defaults write com.apple.DiskUtility advanced-image-options -bool true
-ok
+_info "Enabling the debug menu in Disk Utility"
+defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true || _error ""
+defaults write com.apple.DiskUtility advanced-image-options -bool true || _error ""
 
-running "Using plain text mode for new documents in TextEdit"
-defaults write com.apple.TextEdit RichText -int 0; ok
+_info "Using plain text mode for new documents in TextEdit"
+defaults write com.apple.TextEdit RichText -int 0 || _error ""
 
-running "Changing to UTF-8 in TextEdit"
-defaults write com.apple.TextEdit PlainTextEncoding -int 4
-defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
-ok
+_info "Changing to UTF-8 in TextEdit"
+defaults write com.apple.TextEdit PlainTextEncoding -int 4 || _error ""
+defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4 || _error ""
 
-running "Preventing opening Photos after plugging in devices"
-defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true; ok
+_info "Preventing opening Photos after plugging in devices"
+defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true || _error ""
 
 ###############################################################################
 # Terminal                                                                    #
 ###############################################################################
-action "Changing Terminal settings..."
+_info "Changing Terminal settings..."
 
-running "Allowing only UTF-8 in Terminal"
-defaults write com.apple.terminal StringEncodings -array 4; ok
+_info "Allowing only UTF-8 in Terminal"
+defaults write com.apple.terminal StringEncodings -array 4 || _error ""
 
-running "Enabling Secure Keyboard Entry in Terminal"
-defaults write com.apple.terminal SecureKeyboardEntry -bool true; ok
+_info "Enabling Secure Keyboard Entry in Terminal"
+defaults write com.apple.terminal SecureKeyboardEntry -bool true || _error ""
 
-running "Disabling line marks in Terminal"
-defaults write com.apple.Terminal ShowLineMarks -int 0; ok
+_info "Disabling line marks in Terminal"
+defaults write com.apple.Terminal ShowLineMarks -int 0 || _error ""
 
 ###############################################################################
 # Safari & WebKit                                                             #
 ###############################################################################
-action "Changing Safari settings..."
+_info "Changing Safari settings..."
 
-running "Disabling AutoFill in Safari"
-defaults write com.apple.Safari AutoFillFromAddressBook -bool false
-defaults write com.apple.Safari AutoFillPasswords -bool false
-defaults write com.apple.Safari AutoFillCreditCardData -bool false
-defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
-ok
+_info "Disabling AutoFill in Safari"
+defaults write com.apple.Safari AutoFillFromAddressBook -bool false || _error ""
+defaults write com.apple.Safari AutoFillPasswords -bool false || _error ""
+defaults write com.apple.Safari AutoFillCreditCardData -bool false || _error ""
+defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false || _error ""
 
-running "Preventing opening files automatically after downloading"
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false; ok
+_info "Preventing opening files automatically after downloading"
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false || _error ""
 
-running "Mapping Backspace key to go to the previous page in Safari"
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true; ok
+_info "Mapping Backspace key to go to the previous page in Safari"
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled -bool true || _error ""
 
-running "Disabling thumbnail cache for History and Top Sites"
-defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2; ok
+_info "Disabling thumbnail cache for History and Top Sites"
+defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2 || _error ""
 
-running "Making search default in Safari to Contains instead of Starts With"
-defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false; ok
+_info "Making search default in Safari to Contains instead of Starts With"
+defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false || _error ""
 
-running "Enabling the Develop menu and the Web Inspector in Safari"
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-ok
+_info "Enabling the Develop menu and the Web Inspector in Safari"
+defaults write com.apple.Safari IncludeDevelopMenu -bool true || _error ""
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true || _error ""
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true || _error ""
 
-running "Enabling debug menu in Safari"
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true; ok
+_info "Enabling debug menu in Safari"
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true || _error ""
 
-running "Updating Safari extensions automatically"
-defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true; ok
+_info "Updating Safari extensions automatically"
+defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true || _error ""
 
-running "Removing useless icons from Safari bookmarks bar"
-defaults write com.apple.Safari ProxiesInBookmarksBar "()"; ok
+_info "Removing useless icons from Safari bookmarks bar"
+defaults write com.apple.Safari ProxiesInBookmarksBar "()" || _error ""
 
-running "Enabling Do Not Track in Safari"
-defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true; ok
+_info "Enabling Do Not Track in Safari"
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true || _error ""
 
-running "Hiding bookmarks bar in Safari"
-defaults write com.apple.Safari ShowFavoritesBar -bool false; ok
+_info "Hiding bookmarks bar in Safari"
+defaults write com.apple.Safari ShowFavoritesBar -bool false || _error ""
 
-running "Showing the full URL in the Safari address bar"
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true; ok
+_info "Showing the full URL in the Safari address bar"
+defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool true || _error ""
 
-running "Hiding sidebar in Safari Top Sites"
-defaults write com.apple.Safari ShowSidebarInTopSites -bool false; ok
+_info "Hiding sidebar in Safari Top Sites"
+defaults write com.apple.Safari ShowSidebarInTopSites -bool false || _error ""
 
-running "Diabling search queries to Apple in Safari"
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
-ok
+_info "Diabling search queries to Apple in Safari"
+defaults write com.apple.Safari UniversalSearchEnabled -bool false || _error ""
+defaults write com.apple.Safari SuppressSearchSuggestions -bool true || _error ""
 
-running "Warning about fraudulent websites in Safari"
-defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true; ok
+_info "Warning about fraudulent websites in Safari"
+defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true || _error ""
 
-running "Disabling auto-correct in Safari"
-defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false; ok
+_info "Disabling auto-correct in Safari"
+defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false || _error ""
 
-running "Enabling continuous spellchecking in Safari"
-defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true; ok
+_info "Enabling continuous spellchecking in Safari"
+defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true || _error ""
 
-running "Adding context menu item for showing the Web Inspector in web views"
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true; ok
+_info "Adding context menu item for showing the Web Inspector in web views"
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true || _error ""
 
-running "Disabling Java in Safari"
-defaults write com.apple.Safari WebKitJavaEnabled -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false
-ok
+_info "Disabling Java in Safari"
+defaults write com.apple.Safari WebKitJavaEnabled -bool false || _error ""
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool false || _error ""
 
-running "Blocking pop-up windows in Safari"
-defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
-ok
+_info "Blocking pop-up windows in Safari"
+defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false || _error ""
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false || _error ""
 
-running "Disabling auto-playing video in Safari"
-defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false
-defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false
-ok
+_info "Disabling auto-playing video in Safari"
+defaults write com.apple.Safari WebKitMediaPlaybackAllowsInline -bool false || _error ""
+defaults write com.apple.SafariTechnologyPreview WebKitMediaPlaybackAllowsInline -bool false || _error ""
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false || _error ""
+defaults write com.apple.SafariTechnologyPreview com.apple.Safari.ContentPageGroupIdentifier.WebKit2AllowsInlineMediaPlayback -bool false || _error ""
 
-running "Disabling plug-ins in Safari"
-defaults write com.apple.Safari WebKitPluginsEnabled -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false
-ok
+_info "Disabling plug-ins in Safari"
+defaults write com.apple.Safari WebKitPluginsEnabled -bool false || _error ""
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool false || _error ""
 
 ###############################################################################
 # Mail                                                                        #
 ###############################################################################
-action "Changing Mail settings..."
+_info "Changing Mail settings..."
 
-running "Copying email addresses without name"
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false; ok
+_info "Copying email addresses without name"
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false || _error ""
 
-running "Disabling inline attachments (just show the icons)"
-defaults write com.apple.mail DisableInlineAttachmentViewing -bool true; ok
-ok
+_info "Disabling inline attachments (just show the icons)"
+defaults write com.apple.mail DisableInlineAttachmentViewing -bool true || _error ""
 
-running "Disabling send and reply animations"
-defaults write com.apple.mail DisableReplyAnimations -bool true
-defaults write com.apple.mail DisableSendAnimations -bool true
-ok
+_info "Disabling send and reply animations"
+defaults write com.apple.mail DisableReplyAnimations -bool true || _error ""
+defaults write com.apple.mail DisableSendAnimations -bool true || _error ""
 
-running "Displaying emails in threaded mode (oldest at the top)"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
-ok
+_info "Displaying emails in threaded mode (oldest at the top)"
+defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes" || _error ""
+defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes" || _error ""
+defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date" || _error ""
 
-running "Adding keyboard shortcut ⌘ + Enter to send an email"
-defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9"; ok
+_info "Adding keyboard shortcut ⌘ + Enter to send an email"
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9" || _error ""
 
-running "Disabling automatic spell checking in Mail"
-defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"; ok
-ok
+_info "Disabling automatic spell checking in Mail"
+defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled" || _error ""
+_ok
 
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
-action "Changing Mac App Store settings..."
+_info "Changing Mac App Store settings..."
 
-running "Enabling Debug Menu in App Store"
-defaults write com.apple.appstore ShowDebugMenu -bool true; ok
+_info "Enabling Debug Menu in App Store"
+defaults write com.apple.appstore ShowDebugMenu -bool true || _error ""
 
-running "Enabling the WebKit Developer Tools in App Store"
-defaults write com.apple.appstore WebKitDeveloperExtras -bool true; ok
+_info "Enabling the WebKit Developer Tools in App Store"
+defaults write com.apple.appstore WebKitDeveloperExtras -bool true || _error ""
 
-running "Turning on app auto-update"
-defaults write com.apple.commerce AutoUpdate -bool true; ok
+_info "Turning on app auto-update"
+defaults write com.apple.commerce AutoUpdate -bool true || _error ""
 
-running "Allowing to reboot machine on macOS updates"
-defaults write com.apple.commerce AutoUpdateRestartRequired -bool true; ok
+_info "Allowing to reboot machine on macOS updates"
+defaults write com.apple.commerce AutoUpdateRestartRequired -bool true || _error ""
 
-running "Enabling the automatic update check in App Store"
-defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true; ok
+_info "Enabling the automatic update check in App Store"
+defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true || _error ""
 
-running "Downloading newly available updates in background"
-defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1; ok
+_info "Downloading newly available updates in background"
+defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1 || _error ""
 
-running "Downloading apps purchased on other Macs automatically"
-defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1; ok
+_info "Downloading apps purchased on other Macs automatically"
+defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1 || _error ""
 
-running "Installing System data files & security updates"
-defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1; ok
+_info "Installing System data files & security updates"
+defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1 || _error ""
 
-running "Checking for software updates daily"
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1; ok
+_info "Checking for software updates daily"
+defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1 || _error ""
 
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
-bot "Killing affected applications..."
+_info "Killing affected applications..."
 for app in "Activity Monitor" \
 	"cfprefsd" \
 	"Dock" \
@@ -689,4 +640,4 @@ for app in "Activity Monitor" \
 	"SystemUIServer"; do
 	killall "${app}" &> /dev/null
 done
-ok "Done. Note that some of these changes require a logout/restart to take effect."
+_ok "Done. Note that some of these changes require a logout/restart to take effect."

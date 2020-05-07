@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Include library helper for colorized install feedback
-source ./scripts/_helpers/installers.sh
+# Log Helper
+info() { echo -e "\033[1m[INFO]\033[0m $1" ; }
+ok()   { echo -e "\033[32m[OK]\033[0m $1" ; }
 
 function runScripts() {
     # Ask for the administrator password upfront
@@ -14,19 +15,19 @@ function runScripts() {
     for ARG in "$@"
     do
         if [ $ARG == "init" ] || [ $ARG == "all" ]; then
-            bot "Starting init.sh script..."
+            info "Starting init.sh script..."
             ./scripts/setup/init.sh
         fi
         if [ $ARG == "brew" ] || [ $ARG == "all" ]; then
-            bot "Starting brew.sh script..."
+            info "Starting brew.sh script..."
             ./scripts/setup/brew.sh
         fi
         if [ $ARG == "macos" ] || [ $ARG == "all" ]; then
-            bot "Starting macos.sh script..."
+            info "Starting macos.sh script..."
             ./scripts/setup/macos.sh
         fi
         if [ $ARG == "config" ] || [ $ARG == "all" ]; then
-            bot "Starting config.sh script..."
+            info "Starting config.sh script..."
             ./scripts/setup/config.sh
         fi
     done

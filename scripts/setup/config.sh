@@ -1,8 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Include library helper for colorized echo
-source ./_helpers/colorized-echo.sh
-source ./_helpers/installers.sh
+# Log Helper
+_info()    { echo -e "\033[1m[INFO]\033[0m $1" ; }
+_ok()      { echo -e "\033[32m[OK]\033[0m $1" ; }
+error()   { echo -e "\033[31m[ERROR]\033[0m $1" ; }
 
 # Ask for the administrator password upfront
 sudo -v
@@ -14,60 +15,57 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Alfred 3                                                                    #
 ###############################################################################
 
-running "Disabling Spotlight shortcuts (so Alfred can use them)"
+_info "Disabling Spotlight shortcuts (so Alfred can use them)"
 # These changes need logout or restart to work
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{ enabled = 0; value = { parameters = ( 65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{ enabled = 0; value = { parameters = ( 32, 49, 1048576); type = standard; }; }"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{ enabled = 0; value = { parameters = ( 65535, 49, 1048576); type = standard; }; }" || _error "defaults write com.apple.symbolichotkeys"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{ enabled = 0; value = { parameters = ( 32, 49, 1048576); type = standard; }; }" || _error "defaults write com.apple.symbolichotkeys"
 
-running "Backing up current Alfred settings and symlinking preferred settings from Dropbox"
-mv ~/Library/Application\ Support/Alfred\ 3 ~/Library/Application\ Support/Alfred\ 3_backup
-ln -s ~/Dropbox/Alfred\ 3 ~/Library/Application\ Support/Alfred\ 3
-ok
+_info "Backing up current Alfred settings and symlinking preferred settings from Dropbox"
+mv ~/Library/Application\ Support/Alfred\ 3 ~/Library/Application\ Support/Alfred\ 3_backup || _error "backing up Alfred settings"
+ln -s ~/Dropbox/Alfred\ 3 ~/Library/Application\ Support/Alfred\ 3 || _error "symlinking Alfred settings"
 
 ###############################################################################
 # iTerm 2                                                                     #
 ###############################################################################
-action "Changing iTerm settings..."
+_info "Changing iTerm settings..."
 
-running "Disabling prompt when quitting iTerm"
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false; ok
+_info "Disabling prompt when quitting iTerm"
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false || _error "defaults write com.googlecode.iterm2"
 
-running "Disabling changing font size with pinch gesture in iTerm"
-defaults write com.googlecode.iterm2 PinchToChangeFontSizeDisabled -bool true; ok
+_info "Disabling changing font size with pinch gesture in iTerm"
+defaults write com.googlecode.iterm2 PinchToChangeFontSizeDisabled -bool true || _error "defaults write com.googlecode.iterm2"
 
 #WARN This could break after zsh updates
-running "Avoiding global globurl alias of url-quote-magic"
-sudo cp ~/dev/dotfiles/config/iTerm2/zsh_url-quote-magic /usr/share/zsh/5.3/functions/url-quote-magic
+_info "Avoiding global globurl alias of url-quote-magic"
+sudo cp "$HOME/dev/dotfiles/config/iTerm2/zsh_url-quote-magic" "/usr/share/zsh/5.3/functions/url-quote-magic" || _error "overwriting url-quote-magic"
 
-running "Installing color theme for iTerm (opening file)"
-open "~/dev/dotfiles/config/iTerm2/Dracula.itermcolors"; ok
+_info "Installing color theme for iTerm (opening file)"
+open "$HOME/dev/dotfiles/config/iTerm2/Dracula.itermcolors" && _ok
 
 ###############################################################################
 # mongoDB                                                                     #
 ###############################################################################
-action "Setting up mongoDB..."
-sudo mkdir -p /data/db
-sudo chown -R `id -un` /data/db
-ok
+_info "Setting up mongoDB..."
+sudo mkdir -p /data/db && sudo chown -R "$(id -un)" /data/db && _ok
 
 ###############################################################################
 # Tunnelblick                                                                 #
 ###############################################################################
-running "Configuring university vpn"
-open ~/Dropbox/Tunnelblick/FAU-Fulltunnel.ovpn; ok
+_info "Configuring university vpn"
+open "$HOME/Dropbox/Tunnelblick/FAU-Fulltunnel.ovpn" && _ok
 
-running "Configuring work vpn"
-open ~/Dropbox/Tunnelblick/ldo-TO-IPFire/ldo-TO-IPFire.ovpn; ok
+_info "Configuring work vpn"
+open "$HOME/Dropbox/Tunnelblick/ldo-TO-IPFire/ldo-TO-IPFire.ovpn" && _ok
 
 ###############################################################################
 # Visual Studio Code                                                          #
 ###############################################################################
-action "Setting up Visual Studio Code..."
+_info "Setting up Visual Studio Code..."
 
-running "Fixing VSCodeVim Key Repeat"
-defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+_info "Fixing VSCodeVim Key Repeat"
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false || _error "defaults write com.microsoft.VSCode"
 
-running "Installing preferred VS Code extensions"
+_info "Installing preferred VS Code extensions"
 CODE_EXTENSIONS=(
   johnpapa.angular2
   formulahendry.auto-close-tag
@@ -100,19 +98,15 @@ CODE_EXTENSIONS=(
   wakatime.vscode-wakatime
 )
 for ext in "${CODE_EXTENSIONS[@]}"; do
-  echo "$ext"
+  _info "installing $ext"
+  code --install-extension "$ext" || _error "failed installing $ext"
 done
 
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
-bot "Killing affected applications..."
-for app in
-  "Alfred 3" \
-	"Google Chrome" \
-  "iTerm" \
-	"Spectacle" \
-  "Visual Studio Code"; do
+_info "Killing affected applications..."
+for app in "Alfred 3" "iTerm" "Visual Studio Code"; do
 	killall "${app}" &> /dev/null
 done
-ok "Done. Note that some of these changes require a logout/restart to take effect."
+_ok "Done. Note that some of these changes require a logout/restart to take effect."
