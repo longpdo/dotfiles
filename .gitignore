@@ -1,8 +1,8 @@
-# Folder view configuration files
 .not_in_github
 .DS_Store
 .idea
 .vscode
+.env
 
 # Thumbnail cache files
 ._*
@@ -15,11 +15,6 @@ Thumbs.db
 # Temp files
 Brewfile
 tempCodeRunnerFile.sh
-
-.not_in_github
-.DS_Store
-.idea
-.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

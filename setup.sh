@@ -14,19 +14,19 @@ function runScripts() {
     # Run sections based on command line arguments
     for ARG in "$@"
     do
-        if [ $ARG == "init" ] || [ $ARG == "all" ]; then
+        if [ "$ARG" == "init" ] || [ "$ARG" == "all" ]; then
             info "Starting init.sh script..."
             ./scripts/setup/init.sh
         fi
-        if [ $ARG == "brew" ] || [ $ARG == "all" ]; then
+        if [ "$ARG" == "brew" ] || [ "$ARG" == "all" ]; then
             info "Starting brew.sh script..."
             ./scripts/setup/brew.sh
         fi
-        if [ $ARG == "macos" ] || [ $ARG == "all" ]; then
+        if [ "$ARG" == "macos" ] || [ "$ARG" == "all" ]; then
             info "Starting macos.sh script..."
             ./scripts/setup/macos.sh
         fi
-        if [ $ARG == "config" ] || [ $ARG == "all" ]; then
+        if [ "$ARG" == "config" ] || [ "$ARG" == "all" ]; then
             info "Starting config.sh script..."
             ./scripts/setup/config.sh
         fi
@@ -34,10 +34,10 @@ function runScripts() {
     ok "Completed running setup.sh, restart your computer to ensure all updates take effect"
 }
 
-read -p "This script may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
+read -r -p "This script may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
 echo "";
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    runScripts $@
+    runScripts "$@"
 fi;
 
 unset runScripts;
