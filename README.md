@@ -9,6 +9,12 @@
 ## Table of Contents <!-- omit in toc -->
 
 * [About The Project](#about-the-project)
+  * [Directory structure](#directory-structure)
+  * [Scripts](#scripts)
+    * [Brew Scripts](#brew-scripts)
+    * [Daily Scripts](#daily-scripts)
+    * [Git Scripts](#git-scripts)
+    * [Remaining Scripts](#remaining-scripts)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
 * [Manual Changes](#manual-changes)
@@ -18,12 +24,66 @@
 <!-- About The Project -->
 ## About The Project
 
-There are five basic setup scripts:
+### Directory structure
 
-* `init.sh` - installs macOS software updates, [Xcode](https://developer.apple.com/xcode/), [Homebrew](https://brew.sh/), [Dropbox](https://www.dropbox.com/)
-* `brew.sh` - installs [zsh](http://zsh.sourceforge.net/) and *brew*, *brew cask*, *npm* and *ruby* packages
-* `macos.sh` - setting configurations for macOS applications like *Preferences*, *Dock*, *Finder*, *Mail*, *SystemUIServer*, etc.
-* `config.sh` - setting configurations for remaining applications
+* `config` contains the configurations files, e.g. for **zsh** and **git**.
+  * Other configurations files are backed up via [mackup](https://github.com/lra/mackup)
+
+> Preview of iTerm2 with zsh running the `history-search-multi-word` plugin
+
+![iTerm Preview](/img/iterm.png)
+
+* `scripts` contains my common used shell scripts.
+  * My workflow uses the self-written `fzf-script-launcher` function to quickly call every other binary inside the *scripts* folder.
+  * Keybinding of the shell widget for the `fzf-script-launcher` function is Ctrl + X
+  * Scripts are all linted using [shellcheck](https://github.com/koalaman/shellcheck).
+  * Warning: **Do not just run any script blindly, check what they do first.**
+
+> Demo of the `fzf-script-launcher` browsing through the available scripts and using the selected git-log.sh afterwards
+
+![fzf script launcher](/img/fzf-script-launcher.gif)
+
+### Scripts
+
+#### Brew Scripts
+
+| Script            | Description
+| ----------------- | -----------
+| brew-cask.sh      | Browse all available brew casks with options to install / uninstall / open the webpage
+| brew-install.sh   | Browse all available brew formulas with the option to install selected brews
+| brew-uninstall.sh | Browse all installed brew formulas with the option to uninstall selected brews
+
+#### Daily Scripts
+
+| Script                  | Description
+| ----------------------- | -----------
+| _cronjob.sh             | Runs all daily scripts, configured with crontab to run automatically at 23:30
+| backup.sh               | Backing up current configurations with mackup
+| cleanup.sh              | Cleaning up tmp files
+| rebuild-github-pages.sh | Trigger new builds for repositories deployed on Github Pages
+| update.sh               | Updating software packages (brews, casks, antibody plugins, App Store apps, Ruby gems)
+
+#### Git Scripts
+
+| Script                  | Description
+| ----------------------- | -----------
+| git-add.sh              | Add files interactively to git version control
+| git-checkout-branch.sh  | Checkout branch from a list of local and remote branches
+| git-cleanup-branches.sh | Remove local branches, which do not exist on remote anymore
+| git-diff.sh             | Show changes of current modified files to their version at HEAD
+| git-ignore.sh           | Create .gitignore template file pulled from gitignore.io
+| git-log.sh              | Browse through git commit log
+| git-unstage.sh          | Unstage files interactively from the next commit
+
+#### Remaining Scripts
+
+| Script                | Description
+| --------------------- | -----------
+| chmod-x-scripts.sh    | Change sh scripts with 644 permissions to 755 permissions
+| extract-archives.sh   | Extract all archives found in the working directory and remove them afterwards
+| remove-media.sh       | Remove media files when the duration of the file is shorter than _DURATION in seconds
+| setup-flutter.sh      | Setup complete Flutter development environment
+| shellcheck-scripts.sh | Analyse all shell scripts at dotfiles/scripts with ShellCheck
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -37,7 +97,14 @@ git clone https://github.com/longpdo/dotfiles.git
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-One-liner to setup everything. This will run all five scripts.
+Inside the `scripts/setup` folder I have some scripts to quickly setup my entire dev environment with all necessary software and configurations from a fresh macOS installation. There are four basic setup scripts:
+
+* `init.sh` - installs macOS software updates, [Xcode](https://developer.apple.com/xcode/), [Homebrew](https://brew.sh/), [Dropbox](https://www.dropbox.com/)
+* `brew.sh` - installs [zsh](http://zsh.sourceforge.net/) and *brew*, *brew cask*, *npm* and *ruby* packages
+* `macos.sh` - setting configurations for macOS applications like *Preferences*, *Dock*, *Finder*, *Mail*, *SystemUIServer*, etc.
+* `config.sh` - setting configurations for remaining applications
+
+One-liner to setup everything. This will run all four scripts.
 
 ```bash
 ./setup.sh all
