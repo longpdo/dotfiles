@@ -1,6 +1,6 @@
 # dotfiles <!-- omit in toc -->
 
-> This repository contains my own macOS configuration. The scripts are not written to work for everybody, since some paths point to my Dropbox, but you can take inspiration to see how I work or reuse some of the bash functions and snippets.
+> This repository contains my own macOS configuration. The scripts are not written to work for everybody, due to some absolute paths, but you can take inspiration to see how I work or reuse some of the bash functions and snippets.
 
 [![Open Issues](https://badgen.net/github/open-issues/longpdo/dotfiles)](https://github.com/longpdo/dotfiles/issues)
 [![License](https://badgen.net/github/license/longpdo/dotfiles)](LICENSE)
@@ -29,7 +29,7 @@
 * `config` contains the configurations files, e.g. for **zsh** and **git**.
   * Other configurations files are backed up via [mackup](https://github.com/lra/mackup)
 
-> Preview of iTerm2 with zsh running the `history-search-multi-word` plugin
+> Preview of iTerm2 with the [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme in [Pure](https://github.com/sindresorhus/pure) configs running the [history-search-multi-word](https://github.com/zdharma/history-search-multi-word) zsh plugin
 
 ![iTerm Preview](/img/iterm.png)
 
