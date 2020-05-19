@@ -24,17 +24,19 @@
 <!-- About The Project -->
 ## About The Project
 
+This repository includes greatly customized ZSH with [Antibody](https://github.com/getantibody/antibody) featuring auto-completion, [syntax highlighting](https://github.com/zdharma/fast-syntax-highlighting), [autopair](https://github.com/hlissner/zsh-autopair) and a [Pure](https://github.com/sindresorhus/pure) [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme. Also, a one-liner install leverages Brew and mackup to setup an entire macOS environment.
+
 ### Directory structure
 
 * `config` contains the configurations files, e.g. for **zsh** and **git**.
   * Other configurations files are backed up via [mackup](https://github.com/lra/mackup)
 
-> Preview of iTerm2 with the [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme in [Pure](https://github.com/sindresorhus/pure) configs running the [history-search-multi-word](https://github.com/zdharma/history-search-multi-word) zsh plugin
+> Preview of iTerm2 with Pure theme running the [history-search-multi-word](https://github.com/zdharma/history-search-multi-word) zsh plugin
 
 ![iTerm Preview](/img/iterm.png)
 
 * `scripts` contains my common used shell scripts.
-  * My workflow uses the self-written `fzf-script-launcher` function to quickly call every other binary inside the *scripts* folder.
+  * My workflow uses the self-written `fzf-script-launcher` function to quickly call every binary inside the *scripts* folder (except the scripts inside *_templates* and *setup* folders).
   * Keybinding of the shell widget for the `fzf-script-launcher` function is Ctrl + X
   * Scripts are all linted using [shellcheck](https://github.com/koalaman/shellcheck).
   * Warning: **Do not just run any script blindly, check what they do first.**
