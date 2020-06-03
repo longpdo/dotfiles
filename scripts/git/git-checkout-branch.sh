@@ -12,4 +12,8 @@ _target=$(
   (echo "$_branches"; echo "$_tags") |
   fzf --no-hscroll --no-multi -n 2 --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || exit
 
-git checkout "$(awk '{print $2}' <<<"$_target" )"
+_selected_branch="$(awk '{print $2}' <<<"$_target" )"
+_pattern="*origin/"
+[[ "$_selected_branch" == *"origin/"* ]] && _selected_branch=${_selected_branch/$_pattern}
+
+git checkout "$_selected_branch"
