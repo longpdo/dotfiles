@@ -36,7 +36,8 @@ brew tap homebrew/cask-fonts || _error "failed brew tap homebrew/cask-fonts"
 
 _info "Installing binaries, terminal stuff, CLI..."
 _BINARIES=(
-  batexa
+  bat
+  exa
   coreutils
   exa
   fd
@@ -88,7 +89,6 @@ brew cask install font-firacode-nerd-font-mono || error "failed installing fonts
 
 _info "Installing dev tool casks..."
 _DEV_CASKS=(
-  android-studio
   chromedriver
   insomnia
   intellij-idea
@@ -121,6 +121,7 @@ _MISC_CASKS=(
   kap
   karabiner-elements
   kodi
+  losslesscut
   mactex-no-gui
   mkvtoolnix
   musicbrainz-picard
