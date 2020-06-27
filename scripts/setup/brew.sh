@@ -52,11 +52,14 @@ _BINARIES=(
   media-info
   neovim
   neofetch
+  ocrmypdf
+  pdfgrep
   pipx
   rename
   ripgrep
   ruby
   scrcpy
+  tesseract-lang # language packs for ocr
   tldr
   tokei
   trash
