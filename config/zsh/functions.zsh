@@ -1,31 +1,20 @@
-# Include library helper for colorized echo
-source ~/dev/dotfiles/scripts/_helpers/colorized_echo.sh
+# Automatically ls when changing directories in zsh
+chpwd() {
+  ls
+}
 
 # Run any command from anywhere, without leaving current working directory.
 #
 # Usage: `in [target] [command]`
 # Target: `shtuff` target (if available), else `z` argument
 # Example: `in sand art make:model -a SomeModel`
-
 function in() {(
     j $1
     eval ${@:2}
 )}
 
-# use the command tt <tab name> to rename your tab
-DISABLE_AUTO_TITLE="true"
-tt () {
-    echo -e "\033];$@\007"
-}
-
-
 function cd_to_current_finder_window() {
   cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
-}
-
-# Automatically ls when changing directories in zsh
-chpwd() {
-  ls
 }
 
 function create_dir_and_cd_to_it {
@@ -51,38 +40,6 @@ function open_arg_in_vs_code {
   local argPath="$1"
   [[ $1 = /* ]] && argPath="$1" || argPath="$PWD/${1#./}"
   open -a "Visual Studio Code" "$argPath"
-}
-
-function update_all_and_cleanup() {
-  sudo -v
-  bot "Starting update script..."
-  action "Installing all available updates"
-  sudo softwareupdate -ia --verbose
-  action "Updating antibody plugins"
-  antibody update
-  action "Updating homebrew and packages"
-  brew update
-  brew upgrade
-  action "Upgrading brew cask packages"
-  brew cask outdated
-  brew cask upgrade
-  action "Upgrading App Store apps"
-  mas outdated
-  mas upgrade
-  action "Updating ruby gems"
-  gem update
-  bot "Cleaning up..."
-  action "Cleaning up brew packages"
-  brew bundle dump
-  brew bundle --force cleanup
-  brew cleanup -v
-  rm Brewfile
-  action "Cleaning up ruby gems"
-  gem cleanup -v
-  action "Deleting `.DS_Store` files"
-  find . -type f -name '*.DS_Store' -ls -delete
-  action "Backing up application settings with mackup"
-  mackup backup
 }
 
 # Open File in vscode
@@ -134,3 +91,27 @@ fif() {
 jj() {
   cd "$(z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q "$_last_z_args")"
 }
+
+# CTRL-X
+fzf-script-launcher() {
+  SCRIPTS_PATH='/Users/longdo/dev/dotfiles/scripts/'
+
+  allfiles=$(rg -t sh --files $SCRIPTS_PATH)
+  filteredfiles=$(echo $allfiles | grep -v "_templates/\|setup/")
+  cutpaths=$(echo $filteredfiles | cut -c 36-)
+
+  local selected
+  if selected=$(echo $cutpaths | fzf --height 40% --preview "bat --style=grid --color=always '$SCRIPTS_PATH{}'" -q "$LBUFFER"); then
+    LBUFFER=$SCRIPTS_PATH$selected
+  fi
+  zle redisplay
+}
+# fzf-script-launcher keybinding
+zle     -N   fzf-script-launcher
+bindkey '^X' fzf-script-launcher
+
+# TODO add launcher for python3 scripts
+
+# TODO script ideas
+# write new changes from  ".gitconfig .zshrc" to their mackup locations
+# quickly chmod +x all shell scripts and python files
