@@ -14,6 +14,7 @@
     * [Brew Scripts](#brew-scripts)
     * [Daily Scripts](#daily-scripts)
     * [Git Scripts](#git-scripts)
+    * [PDF Scripts](#pdf-scripts)
     * [Remaining Scripts](#remaining-scripts)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
@@ -24,7 +25,7 @@
 <!-- About The Project -->
 ## About The Project
 
-This repository includes greatly customized ZSH with [Antibody](https://github.com/getantibody/antibody) featuring auto-completion, [syntax highlighting](https://github.com/zdharma/fast-syntax-highlighting), [autopair](https://github.com/hlissner/zsh-autopair) and a [Pure](https://github.com/sindresorhus/pure) [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme. Also, a one-liner install leverages Brew and mackup to setup an entire macOS environment.
+This repository includes greatly customized [zsh](http://zsh.sourceforge.net/) with [Antibody](https://github.com/getantibody/antibody) featuring auto-completion, [syntax highlighting](https://github.com/zdharma/fast-syntax-highlighting), [autopair](https://github.com/hlissner/zsh-autopair) and a [Pure](https://github.com/sindresorhus/pure) [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme. Also, a one-liner install leverages Brew and mackup to setup an entire macOS environment.
 
 ### Directory structure
 
@@ -77,6 +78,12 @@ This repository includes greatly customized ZSH with [Antibody](https://github.c
 | git-log.sh              | Browse through git commit log
 | git-unstage.sh          | Unstage files interactively from the next commit
 
+#### PDF Scripts
+
+| Script                      | Description
+| --------------------------- | -----------
+| rename-broker-statements.sh | Rename broker statements and move/sort them to the right folder
+
 #### Remaining Scripts
 
 | Script                | Description
@@ -102,7 +109,7 @@ git clone https://github.com/longpdo/dotfiles.git
 Inside the `scripts/setup` folder I have some scripts to quickly setup my entire dev environment with all necessary software and configurations from a fresh macOS installation. There are four basic setup scripts:
 
 * `init.sh` - installs macOS software updates, [Xcode](https://developer.apple.com/xcode/), [Homebrew](https://brew.sh/), [Dropbox](https://www.dropbox.com/)
-* `brew.sh` - installs [zsh](http://zsh.sourceforge.net/) and *brew*, *brew cask*, *npm* and *ruby* packages
+* `brew.sh` - installs [zsh](http://zsh.sourceforge.net/) and [brew](https://formulae.brew.sh/formula/), [brew cask](https://formulae.brew.sh/cask/), **npm** and **ruby** packages
 * `macos.sh` - setting configurations for macOS applications like *Preferences*, *Dock*, *Finder*, *Mail*, *SystemUIServer*, etc.
 * `config.sh` - setting configurations for remaining applications
 
