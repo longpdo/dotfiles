@@ -82,6 +82,7 @@ This repository includes greatly customized [zsh](http://zsh.sourceforge.net/) w
 
 | Script                      | Description
 | --------------------------- | -----------
+| _cronjob-get-pdfs.sh        | Runs every 30 min to check synced Dropbox folders for new files and move them
 | rename-broker-statements.sh | Rename broker statements and move/sort them to the right folder
 
 #### Remaining Scripts
@@ -97,10 +98,13 @@ This repository includes greatly customized [zsh](http://zsh.sourceforge.net/) w
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy, clone the repository.
+1: Fork the repository (using the `Fork` button at the top)
+
+2: Clone the repository
 
 ```sh
-git clone https://github.com/longpdo/dotfiles.git
+# Replace {YOUR_USERNAME} with your actual username
+git clone https://github.com/{YOUR_USERNAME}/dotfiles.git
 ```
 
 <!-- USAGE EXAMPLES -->
