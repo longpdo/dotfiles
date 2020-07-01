@@ -83,7 +83,7 @@ This repository includes greatly customized [zsh](http://zsh.sourceforge.net/) w
 | Script                      | Description
 | --------------------------- | -----------
 | _cronjob-get-pdfs.sh        | Runs every 30 min to check synced Dropbox folders for new files and move them
-| rename-broker-statements.sh | Rename broker statements and move/sort them to the right folder
+| rename-broker-statements.sh | Rename broker statements and move/sort them to the right portfolio folder
 
 #### Remaining Scripts
 
