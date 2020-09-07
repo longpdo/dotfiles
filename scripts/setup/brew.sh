@@ -54,7 +54,6 @@ _BINARIES=(
   neofetch
   ocrmypdf
   pdfgrep
-  pipx
   rename
   ripgrep
   ruby
