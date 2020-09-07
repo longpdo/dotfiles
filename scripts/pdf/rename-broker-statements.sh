@@ -115,7 +115,7 @@ _trade_republic() {
 
   # Rename the pdf and move the pdf to the right portfolio folder
   pdfgrep -q 'Long Phi Do' "$1" && _info "Trade.Republic: ldo_$name" && mv -i "$1" "$_TRADE_REPUBLIC_PATH/ldo_$name" && return
-  pdfgrep -q 'Phi Phung Tran' "$1" && _info "Trade.Republic.1302: $name" && mv -i "$1" "$_TRADE_REPUBLIC_1302_PATH/ptr_$name" && return
+  pdfgrep -q 'Phi Phung Tran' "$1" && _info "Trade.Republic.1302: ptr_$name" && mv -i "$1" "$_TRADE_REPUBLIC_1302_PATH/ptr_$name" && return
 }
 
 # Rename comdirect statements
