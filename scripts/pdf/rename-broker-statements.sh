@@ -107,7 +107,7 @@ _trade_republic() {
   [ -z "$type" ] || name+=$type'_'
 
   # Remove suffixes from stock names
-  stock=$(pdfgrep --ignore-case ' in Girosammelverwahrung.| in Wertpapierrechnung.' "$1" | sed -e "s/ Inc.*//g" -e "s/ SE.*//g" -e "s/ AG.*//g" -e "s/.ETF.*//g" -e "s/ Corp.*//g" -e "s/ PLC.*//g" -e "s/ N\.V.*//g" -e "s/ Registered Shares.*//g" -e "s/ Reg. Shares.*//g" -e "s/ S\.A.*//g" -e "s/.Navne.*//g")
+  stock=$(pdfgrep --ignore-case ' in Girosammelverwahrung.| in Wertpapierrechnung.' "$1" | sed -e "s/ Inc.*//g" -e "s/ SE.*//g" -e "s/ AG.*//g" -e "s/.ETF.*//g" -e "s/ Corp.*//g" -e "s/ PLC.*//g" -e "s/ N\.V.*//g" -e "s/ Registered Shares.*//g" -e "s/ Reg. Shares.*//g" -e "s/ S\.A.*//g" -e "s/.Navne.*//g" -e "s/.Ltd.*//g")
   [ -z "$stock" ] || name+=$stock'.pdf'
 
   # Replace spaces with dots, replace up to three special chars next to one another for one dot
