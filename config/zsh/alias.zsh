@@ -1,6 +1,8 @@
 # Remove default aliases
 unalias -a
 
+# TODO check all the aliases
+
 # Easier navigation: .., ..., ...., .....
 alias .='cd ..'
 alias ..='cd ../..'
@@ -27,17 +29,14 @@ alias g='git'
 alias l='exa -lh'
 alias la='exa -lah'
 alias o='open'
-alias p='python3'
+alias p='/usr/local/bin/python3'
 alias p2='python'
 
 # Functions
 alias c='open_arg_in_vs_code'
 alias ca='convert_audio_flac_to_aac_vbr_5'
 alias cdf='cd_to_current_finder_window'
-alias gco='git_checkout_branch_with_fzf'
-alias gclean='git_clean_branches'
 alias gh='git_open_repo_in_browser'
-alias glog='git_commit_log_with_fzf'
 alias j='z'
 alias mi='mediainfo'
 alias mkd='create_dir_and_cd_to_it'
@@ -48,3 +47,5 @@ alias yt='download_youtube_video'
 # Brew alias https://github.com/sticklerm3/alehouse
 # exa alias https://github.com/DarrinTisdale/zsh-aliases-exa
 
+
+alias fuck='sudo !!'
