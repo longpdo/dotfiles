@@ -12,17 +12,13 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
-# Alfred 3                                                                    #
+# Alfred 4                                                                    #
 ###############################################################################
 
-_info "Disabling Spotlight shortcuts (so Alfred can use them)"
-# These changes need logout or restart to work
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{ enabled = 0; value = { parameters = ( 65535, 49, 1048576); type = standard; }; }" || _error "defaults write com.apple.symbolichotkeys"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{ enabled = 0; value = { parameters = ( 32, 49, 1048576); type = standard; }; }" || _error "defaults write com.apple.symbolichotkeys"
-
+# TODO change Alfred 3 to 4, or check if this is covered by mackup
 _info "Backing up current Alfred settings and symlinking preferred settings from Dropbox"
-mv ~/Library/Application\ Support/Alfred\ 3 ~/Library/Application\ Support/Alfred\ 3_backup || _error "backing up Alfred settings"
-ln -s ~/Dropbox/Alfred\ 3 ~/Library/Application\ Support/Alfred\ 3 || _error "symlinking Alfred settings"
+mv ~/Library/Application\ Support/Alfred\ 4 ~/Library/Application\ Support/Alfred\ 4_backup || _error "backing up Alfred settings"
+ln -s ~/Dropbox/Alfred\ 4 ~/Library/Application\ Support/Alfred\ 4 || _error "symlinking Alfred settings"
 
 ###############################################################################
 # iTerm 2                                                                     #
@@ -35,22 +31,16 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false || _error "default
 _info "Disabling changing font size with pinch gesture in iTerm"
 defaults write com.googlecode.iterm2 PinchToChangeFontSizeDisabled -bool true || _error "defaults write com.googlecode.iterm2"
 
-#WARN This could break after zsh updates
-_info "Avoiding global globurl alias of url-quote-magic"
-sudo cp "$HOME/dev/dotfiles/config/iTerm2/zsh_url-quote-magic" "/usr/share/zsh/5.3/functions/url-quote-magic" || _error "overwriting url-quote-magic"
-
 _info "Installing color theme for iTerm (opening file)"
 open "$HOME/dev/dotfiles/config/iTerm2/Dracula.itermcolors" && _ok
 
 ###############################################################################
 # Tunnelblick                                                                 #
 ###############################################################################
-_info "Configuring university vpn"
-open "$HOME/Dropbox/Tunnelblick/FAU-Fulltunnel.ovpn" && _ok
-
-# TODO Replace with new vpn
-# _info "Configuring work vpn"
-# open "$HOME/Dropbox/Tunnelblick/ldo-TO-IPFire/ldo-TO-IPFire.ovpn" && _ok
+for opvn in "$HOME"/Dropbox/Tunnelblick/opvn/*; do
+  _info "Configuring vpn $opvn"
+  open "$opvn"
+done
 
 ###############################################################################
 # Visual Studio Code                                                          #
