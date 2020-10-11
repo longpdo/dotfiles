@@ -120,9 +120,6 @@ defaults write com.apple.dock show-recents -bool false || _error ""
 _info "Making icons of hidden applications translucent"
 defaults write com.apple.dock showhidden -bool true || _error ""
 
-_info "Setting dock orientation to bottom"
-defaults read com.apple.dock orientation bottom || _error ""
-
 _info "Setting the icon size of Dock items to 40 pixels"
 defaults write com.apple.dock tilesize -int 40 || _error ""
 
@@ -182,9 +179,6 @@ sudo systemsetup -setremotelogin off || _error ""
 _info "Restarting automatically if the computer freezes"
 sudo systemsetup -setrestartfreeze on || _error ""
 
-_info "Disabling wake-on modem"
-sudo systemsetup -setwakeonmodem off || _error ""
-
 _info "Disabling wake-on LAN"
 sudo systemsetup -setwakeonnetworkaccess off || _error ""
 
@@ -226,10 +220,6 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false ||
 
 _info "Disabling auto-correct"
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false || _error ""
-
-# needs Sytem Integrity Protection disabled to work
-_info "Stopping iTunes from responding to the keyboard media keys"
-launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null || _error ""
 
 ###############################################################################
 # Mouse                                                                       #
@@ -324,11 +314,6 @@ _info "Hiding Siri menu bar icon and deactivating"
 defaults write com.apple.Siri StatusMenuVisible -bool false || _error ""
 defaults write com.apple.Siri UserHasDeclinedEnable -bool true || _error ""
 defaults write com.apple.assistant.support 'Assistant Enabled' 0 || _error ""
-
-_info "Displaying only Airport and Clock in menu bar"
-defaults delete com.apple.systemuiserver "NSStatusItem Preferred Position com.apple.menuextra.battery" || _error ""
-defaults delete com.apple.systemuiserver "NSStatusItem Visible com.apple.menuextra.battery" || _error ""
-defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/AirPort.menu" "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" || _error ""
 
 ###############################################################################
 # Screenshots                                                                 #
