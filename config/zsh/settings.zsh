@@ -51,3 +51,6 @@ ZSH_WAKATIME_PROJECT_DETECTION=true
 
 # Init z.lua
 eval "$(lua ~/z.lua --init zsh enhanced once)"
+
+# Init jenv
+eval "$(jenv init -)"

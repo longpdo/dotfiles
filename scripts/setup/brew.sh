@@ -31,8 +31,9 @@ chsh -s "$(which zsh)" && _ok ""
 # Homebrew                                                                    #
 ###############################################################################
 _info "Adding taps to brew..."
-brew tap caskroom/versions || _error "failed brew tap caskroom/versions"
+brew tap homebrew/cask-versions || _error "failed brew tap homebrew/cask-versions"
 brew tap homebrew/cask-fonts || _error "failed brew tap homebrew/cask-fonts"
+brew tap AdoptOpenJDK/openjdk || _error "failed brew tap AdoptOpenJDK/openjdk"
 
 _info "Installing binaries, terminal stuff, CLI..."
 _BINARIES=(
@@ -76,10 +77,10 @@ done
 
 _info "Installing dev environment..."
 _DEV_LIBRARIES=(
+  jenv
   lua
   maven
   node
-  mongodb
 )
 for brew in "${_DEV_LIBRARIES[@]}"; do
   _info "installing $brew"
@@ -87,16 +88,15 @@ for brew in "${_DEV_LIBRARIES[@]}"; do
 done
 
 _info "Installing fonts..."
-brew cask install font-firacode-nerd-font-mono || error "failed installing fonts"
+brew cask install font-hack-nerd-font || error "failed installing fonts"
 
 _info "Installing dev tool casks..."
 _DEV_CASKS=(
+  adoptopenjdk8
   chromedriver
   insomnia
   intellij-idea
   iterm2
-  java
-  #java8 -> not available anymore
   pycharm
   robo-3t
   visual-studio-code

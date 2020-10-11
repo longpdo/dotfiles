@@ -43,19 +43,14 @@ _info "Installing color theme for iTerm (opening file)"
 open "$HOME/dev/dotfiles/config/iTerm2/Dracula.itermcolors" && _ok
 
 ###############################################################################
-# mongoDB                                                                     #
-###############################################################################
-_info "Setting up mongoDB..."
-sudo mkdir -p /data/db && sudo chown -R "$(id -un)" /data/db && _ok
-
-###############################################################################
 # Tunnelblick                                                                 #
 ###############################################################################
 _info "Configuring university vpn"
 open "$HOME/Dropbox/Tunnelblick/FAU-Fulltunnel.ovpn" && _ok
 
-_info "Configuring work vpn"
-open "$HOME/Dropbox/Tunnelblick/ldo-TO-IPFire/ldo-TO-IPFire.ovpn" && _ok
+# TODO Replace with new vpn
+# _info "Configuring work vpn"
+# open "$HOME/Dropbox/Tunnelblick/ldo-TO-IPFire/ldo-TO-IPFire.ovpn" && _ok
 
 ###############################################################################
 # Visual Studio Code                                                          #
