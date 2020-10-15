@@ -37,7 +37,7 @@ open "$HOME/dev/dotfiles/config/iTerm2/Dracula.itermcolors" && _ok
 ###############################################################################
 # Tunnelblick                                                                 #
 ###############################################################################
-for opvn in "$HOME"/Dropbox/Tunnelblick/opvn/*; do
+for opvn in "$HOME"/Dropbox/Tunnelblick/*; do
   _info "Configuring vpn $opvn"
   open "$opvn"
 done

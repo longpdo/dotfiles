@@ -131,6 +131,7 @@ _MISC_CASKS=(
   slack
   spectacle
   the-unarchiver
+  ticktick
   tunnelblick
   whatsapp
   zoomus
