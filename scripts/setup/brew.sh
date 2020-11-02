@@ -34,6 +34,7 @@ _info "Adding taps to brew..."
 brew tap homebrew/cask-versions || _error "failed brew tap homebrew/cask-versions"
 brew tap homebrew/cask-fonts || _error "failed brew tap homebrew/cask-fonts"
 brew tap AdoptOpenJDK/openjdk || _error "failed brew tap AdoptOpenJDK/openjdk"
+brew tap PotatoLabs/homebrew-git-redate || _error "failed brew tap PotatoLabs/homebrew-git-redate"
 
 _info "Installing binaries, terminal stuff, CLI..."
 _BINARIES=(
@@ -47,6 +48,7 @@ _BINARIES=(
   findutils
   fzf
   git
+  git-redate
   jq
   mackup
   mas
@@ -125,6 +127,8 @@ _MISC_CASKS=(
   kodi
   losslesscut
   mactex-no-gui
+  microsoft-office
+  microsoft-teams
   mkvtoolnix
   musicbrainz-picard
   notion
