@@ -153,11 +153,11 @@ _ing_report() {
 
 for pdf in $(rg --max-depth 1 -t pdf --files "$_PDF_PATH"); do
   # pdfgrep the broker name and call the corresponding method to rename the broker statements
-  pdfgrep -q 'comdirect bank' "$pdf" && pdfgrep -q 'Finanzreport|Steuerbescheinigung' "$pdf" && _comdirect_report "$pdf" && continue
+  pdfgrep -q '25449 Quickborn' "$pdf" && pdfgrep -q 'Finanzreport|Steuerbescheinigung' "$pdf" && _comdirect_report "$pdf" && continue
   pdfgrep -q 'ING-DiBa AG' "$pdf" && pdfgrep -q 'Jahresdepotauszug|Depotauszug|Erträgnisaufstellung|Steuerbescheinigung|Verlustverrechnung' "$pdf" && _ing_report "$pdf" && continue
 
   # pdfgrep the broker name and call the corresponding method to rename the broker invoices
   pdfgrep -q 'ING-DiBa AG · 60628 Frankfurt am Main' "$pdf" && _ing "$pdf" && continue
-  pdfgrep -q 'comdirect bank' "$pdf" && _comdirect "$pdf" && continue
+  pdfgrep -q '25449 Quickborn' "$pdf" && _comdirect "$pdf" && continue
   pdfgrep -q 'TRADE REPUBLIC BANK GMBH' "$pdf" && _trade_republic "$pdf" && continue
 done
