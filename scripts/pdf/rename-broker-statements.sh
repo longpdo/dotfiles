@@ -11,6 +11,8 @@ _COMDIRECT_PATH="$HOME/Documents/broker/comdirect"
 _COMDIRECT_1302_PATH="$HOME/Documents/broker/comdirect.1302"
 _COMDIRECT_1508_PATH="$HOME/Documents/broker/comdirect.1508"
 _ING_PATH="$HOME/Documents/broker/ING"
+_SCALABLE_PATH="$HOME/Documents/broker/Scalable.Capital"
+_SCALABLE_1508_PATH="$HOME/Documents/broker/Scalable.Capital.1508"
 _TRADE_REPUBLIC_PATH="$HOME/Documents/broker/Trade.Republic"
 _TRADE_REPUBLIC_1302_PATH="$HOME/Documents/broker/Trade.Republic.1302"
 
@@ -88,6 +90,36 @@ _ing() {
   pdfgrep -q 'Long Phi Do' "$1" && _info "ING: ldo_$name" && mv -i "$1" "$_ING_PATH/ldo_$name"
 }
 
+# Rename Scalable Capital invoices
+_scalable_capital() {
+  # pdfgrep the date
+  date=$(pdfgrep --max-count 1 'Auftragsdatum' "$1" | awk '{print $2}')
+  # Format the date to YYYYMMDD
+  date=$(date -j -f "%d.%m.%Y" "$date" +%Y%m%d)
+  name=$date'_'
+
+  # pdfgrep the time for buy or sell orders
+  time=$(pdfgrep --ignore-case 'Auftragszeit' "$1" | awk '{print $2}' | tr -d :)
+  [ -z "$time" ] || name+=$time'_'
+
+  # pdfgrep the type of the invoice (buy order, sell order)
+  type=$(pdfgrep --max-count 1 'Wertpapierabrechnung' "$1" | awk '{print $2}')
+  # TODO pdfgrep the type of the invoice (stock savings plan, dividend)
+  # TODO pdfgrep the type of the invoice (splits)
+  [ -z "$type" ] || name+=$type'_'
+
+  # Remove suffixes from stock names
+  stock=$(pdfgrep --max-count 1 'STK ' "$1" | awk '{print substr($0, index($0, $3))}' | sed -e "s/ Inc.*//g" -e "s/ SE.*//g" -e "s/ AG.*//g" -e "s/.ETF.*//g" -e "s/ Corp.*//g" -e "s/ PLC.*//g" -e "s/ N\.V.*//g" -e "s/ ASA.*//g" -e "s/ Registered Shares.*//g" -e "s/ Reg. Shares.*//g" -e "s/ S\.A.*//g" -e "s/.Navne.*//g" -e "s/.Ltd.*//g")
+  [ -z "$stock" ] || name+=$stock'.pdf'
+
+  # Replace spaces with dots, replace up to three special chars next to one another for one dot
+  name=$(echo "$name" | tr ' ' '.' | sed -e 's/[().,-]\{1,3\}/\./g')
+
+  # Rename the pdf and move the pdf to the right portfolio folder
+  pdfgrep -q 'Long Do' "$1" && _info "Scalable.Capital: ldo_$name" && mv -i "$1" "$_SCALABLE_PATH/ldo_$name" && return
+  pdfgrep -q 'Huu Nhan Do' "$1" && _info "Scalable.Capital.1508: ndo_$name" && mv -i "$1" "$_SCALABLE_1508_PATH/ndo_$name" && return
+}
+
 # Rename Trade Republic invoices
 _trade_republic() {
   # pdfgrep the date
@@ -95,6 +127,7 @@ _trade_republic() {
   # Format the date to YYYYMMDD
   date=$(date -j -f "%d.%m.%Y" "$date" +%Y%m%d)
   name=$date'_'
+  echo $name
 
   # pdfgrep the type of the invoice (buy order, sell order)
   type=$(pdfgrep --ignore-case 'Order Kauf|Order Verkauf' "$1" | awk 'OFS="_" {print $6,$2}' | tr -d :)
@@ -106,12 +139,18 @@ _trade_republic() {
   type=$(pdfgrep --ignore-case 'Reverse Split' "$1" | awk '{print $2}' | tr '[:upper:]' '[:lower:]')
   [ -z "$type" ] || name+=$type'_'
 
+  echo $name
+
   # Remove suffixes from stock names
   stock=$(pdfgrep --ignore-case ' in Girosammelverwahrung.| in Wertpapierrechnung.' "$1" | sed -e "s/ Inc.*//g" -e "s/ SE.*//g" -e "s/ AG.*//g" -e "s/.ETF.*//g" -e "s/ Corp.*//g" -e "s/ PLC.*//g" -e "s/ N\.V.*//g" -e "s/ Registered Shares.*//g" -e "s/ Reg. Shares.*//g" -e "s/ S\.A.*//g" -e "s/.Navne.*//g" -e "s/.Ltd.*//g")
   [ -z "$stock" ] || name+=$stock'.pdf'
 
+  echo $name
+
   # Replace spaces with dots, replace up to three special chars next to one another for one dot
   name=$(echo "$name" | tr ' ' '.' | sed -e 's/[().,-]\{1,3\}/\./g')
+
+  echo $name
 
   # Rename the pdf and move the pdf to the right portfolio folder
   pdfgrep -q 'Long Phi Do' "$1" && _info "Trade.Republic: ldo_$name" && mv -i "$1" "$_TRADE_REPUBLIC_PATH/ldo_$name" && return
@@ -159,5 +198,7 @@ for pdf in $(rg --max-depth 1 -t pdf --files "$_PDF_PATH"); do
   # pdfgrep the broker name and call the corresponding method to rename the broker invoices
   pdfgrep -q 'ING-DiBa AG · 60628 Frankfurt am Main' "$pdf" && _ing "$pdf" && continue
   pdfgrep -q '25449 Quickborn' "$pdf" && _comdirect "$pdf" && continue
+  pdfgrep -q '25451 Quickborn' "$pdf" && _comdirect "$pdf" && continue
+  pdfgrep -q 'Scalable Capital Vermögensverw.GmbH' "$pdf" && _scalable_capital "$pdf" && continue
   pdfgrep -q 'TRADE REPUBLIC BANK GMBH' "$pdf" && _trade_republic "$pdf" && continue
 done
