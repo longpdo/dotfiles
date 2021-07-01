@@ -24,3 +24,5 @@ _info "Running cleanup.sh"
 
 _info "Running rebuild-github-pages.sh"
 /Users/longdo/dev/dotfiles/scripts/daily/rebuild-github-pages.sh
+
+# TODO send mail on error log
