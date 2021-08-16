@@ -94,12 +94,12 @@ jj() {
 
 # CTRL-X
 fzf-script-launcher() {
-  SCRIPTS_PATH='/Users/longdo/dev/dotfiles/scripts/'
+  SCRIPTS_PATH="$DOTFILES_PATH/scripts/"
 
   allfiles=$(rg -t sh --files $SCRIPTS_PATH)
   # filteredfiles=$(echo $allfiles | grep -v "_templates/\|setup/")
   # cutpaths=$(echo $filteredfiles | cut -c 36-)
-  cutpaths=$(echo $allfiles | cut -c 36-)
+  cutpaths=$(echo $allfiles | cut -c $(( ${#SCRIPTS_PATH} + 1 ))-)
 
   local selected
   if selected=$(echo $cutpaths | fzf --height 40% --preview "bat --style=grid --color=always '$SCRIPTS_PATH{}'" -q "$LBUFFER"); then

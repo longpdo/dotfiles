@@ -6,7 +6,7 @@
 _ok() { echo -e "\033[32m[OK]\033[0m $1" ; }
 
 # Load GITHUB_TOKEN from .env
-export "$(grep -E -v '^#' "/Users/longdo/dev/dotfiles/.env" | xargs)"
+export "$(grep -E -v '^#' "$DOTFILES_PATH.env" | xargs)"
 
 # Declare repositories, where new build should be triggered
 declare -a _repositories=("longpdo.github.io" "neumorphism")

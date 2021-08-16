@@ -5,8 +5,8 @@
 # Log Helper
 _ok() { echo -e "\033[32m[OK]\033[0m $1" ; }
 
-_SCRIPTS_PATH='/Users/longdo/dev/dotfiles/scripts/'
+_SCRIPTS_PATH="$DOTFILES_PATH/scripts/"
 
-for script in $(rg -t sh --files $_SCRIPTS_PATH); do
+for script in $(rg -t sh --files "$_SCRIPTS_PATH"); do
   [[ $(stat -f "%OLp" "$script") == '644' ]] && chmod +x "$script" && _ok "$script"
 done

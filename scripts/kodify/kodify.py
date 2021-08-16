@@ -5,11 +5,10 @@ from helpers import logger
 from helpers import os_utils
 from helpers import mkv_utils
 
-
 working_dir = os.getcwd()
-backup_dir = '/Users/longdo/Downloads/old_macbook/filme/#fertig/#backup/'
-mkvmerge_dir = '/Users/longdo/Downloads/old_macbook/filme/#fertig/#mkvmerge/'
-output_dir = '/Users/longdo/Downloads/old_macbook/filme/#fertig/#output/'
+backup_dir = os.environ['USER_PATH'] + '/Downloads/old_macbook/filme/#fertig/#backup/'
+mkvmerge_dir = os.environ['USER_PATH'] + '/Downloads/old_macbook/filme/#fertig/#mkvmerge/'
+output_dir = os.environ['USER_PATH'] + '/Downloads/old_macbook/filme/#fertig/#output/'
 excluded_dirs = {'#backup', '#mkvmerge', '#output'}
 
 
