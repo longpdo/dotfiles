@@ -42,6 +42,18 @@ function open_arg_in_vs_code {
   open -a "Visual Studio Code" "$argPath"
 }
 
+function java_environment_change() {
+  export JAVA_HOME=$(/usr/libexec/java_home -v $argv)
+  export PATH=$JAVA_HOME/bin:$PATH
+  launchctl setenv JAVA_HOME $JAVA_HOME
+  java -version
+}
+
+function java_version_selection() {
+  _selected=$(/usr/libexec/java_home -V 2>&1 | grep -Eo "\d+.\d.\d" | fzf +m)
+  java_environment_change $_selected
+}
+
 # Open File in vscode
 of() {
   local file
@@ -94,12 +106,12 @@ jj() {
 
 # CTRL-X
 fzf-script-launcher() {
-  SCRIPTS_PATH='/Users/longdo/dev/dotfiles/scripts/'
+  SCRIPTS_PATH="$DOTFILES_PATH/scripts/"
 
   allfiles=$(rg -t sh --files $SCRIPTS_PATH)
   # filteredfiles=$(echo $allfiles | grep -v "_templates/\|setup/")
   # cutpaths=$(echo $filteredfiles | cut -c 36-)
-  cutpaths=$(echo $allfiles | cut -c 36-)
+  cutpaths=$(echo $allfiles | cut -c $(( ${#SCRIPTS_PATH} + 1 ))-)
 
   local selected
   if selected=$(echo $cutpaths | fzf --height 40% --preview "bat --style=grid --color=always '$SCRIPTS_PATH{}'" -q "$LBUFFER"); then

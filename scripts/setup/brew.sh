@@ -21,7 +21,7 @@ _info "Installing antibody..."
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 
 _info "Installing the Tomorrow Night theme for iTerm (opening file)"
-open "./themes/Dracula.itermcolors" && _ok ""
+open "./config/iTerm2/Dracula.itermcolors" && _ok ""
 
 _info "Setting ZSH as the default shell environment"
 sudo sh -c "echo $(which zsh) >> /etc/shells"
@@ -67,6 +67,7 @@ _BINARIES=(
   trash
   wget
   youtube-dl
+  shellcheck
 )
 for brew in "${_BINARIES[@]}"; do
   _info "installing $brew"
@@ -90,11 +91,12 @@ for brew in "${_DEV_LIBRARIES[@]}"; do
 done
 
 _info "Installing fonts..."
-brew cask install font-hack-nerd-font || error "failed installing fonts"
+brew install --cask font-hack-nerd-font || error "failed installing fonts"
 
 _info "Installing dev tool casks..."
 _DEV_CASKS=(
-  adoptopenjdk8
+  adoptopenjdk/openjdk/adoptopenjdk8
+  adoptopenjdk/openjdk/adoptopenjdk11
   chromedriver
   insomnia
   intellij-idea
@@ -103,10 +105,12 @@ _DEV_CASKS=(
   robo-3t
   visual-studio-code
   webstorm
+  docker
+  postman
 )
 for cask in "${_DEV_CASKS[@]}"; do
   _info "installing $cask"
-  brew cask install "$cask" || error "failed brew cask install $cask"
+  brew install --cask "$cask" || error "failed brew install --cask $cask"
 done
 
 _info "Installing misc casks..."
@@ -138,11 +142,11 @@ _MISC_CASKS=(
   ticktick
   tunnelblick
   whatsapp
-  zoomus
+  zoom
 )
 for cask in "${_MISC_CASKS[@]}"; do
   _info "installing $cask"
-  brew cask install "$cask" || error "failed brew cask install $cask"
+  brew install --cask "$cask" || error "failed brew install --cask $cask"
 done
 
 _info "Installing quick look plugins..."
@@ -156,7 +160,7 @@ _PLUGINS=(
 )
 for cask in "${_PLUGINS[@]}"; do
   _info "installing $cask"
-  brew cask install "$cask" || error "failed brew cask install $cask"
+  brew install --cask "$cask" || error "failed brew install $cask"
 done
 
 ###############################################################################
@@ -178,7 +182,7 @@ gem install --user-install jekyll || _error "failed gem install jekyll"
 # Mac App Store                                                               #
 ###############################################################################
 _info "Installing apps from App Store..."
-mas install 497799835 || _error "failed mas install Xcode" # Xcode
+mas purchase 497799835 || _error "failed mas install Xcode" # Xcode
 
 ###############################################################################
 # Other apps                                                                  #
