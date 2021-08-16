@@ -138,7 +138,7 @@ _MISC_CASKS=(
   ticktick
   tunnelblick
   whatsapp
-  zoomus
+  zoom
 )
 for cask in "${_MISC_CASKS[@]}"; do
   _info "installing $cask"
