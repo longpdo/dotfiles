@@ -178,7 +178,7 @@ gem install --user-install jekyll || _error "failed gem install jekyll"
 # Mac App Store                                                               #
 ###############################################################################
 _info "Installing apps from App Store..."
-mas install 497799835 || _error "failed mas install Xcode" # Xcode
+mas purchase 497799835 || _error "failed mas install Xcode" # Xcode
 
 ###############################################################################
 # Other apps                                                                  #
