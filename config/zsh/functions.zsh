@@ -42,6 +42,18 @@ function open_arg_in_vs_code {
   open -a "Visual Studio Code" "$argPath"
 }
 
+function java_environment_change() {
+  export JAVA_HOME=$(/usr/libexec/java_home -v $argv)
+  export PATH=$JAVA_HOME/bin:$PATH
+  launchctl setenv JAVA_HOME $JAVA_HOME
+  java -version
+}
+
+function java_version_selection() {
+  _selected=$(/usr/libexec/java_home -V 2>&1 | grep -Eo "\d+.\d.\d" | fzf +m)
+  java_environment_change $_selected
+}
+
 # Open File in vscode
 of() {
   local file

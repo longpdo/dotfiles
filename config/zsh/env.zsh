@@ -3,7 +3,7 @@
 # VARIABLES
 export EDITOR='code'
 export VISUAL='nano' # set to nano to edit crontabs
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home"
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export TERM="xterm-256color"
 export USER_PATH="/Users/saltukkezer"
 export DOTFILES_PATH="$USER_PATH/dev/dotfiles"
@@ -20,3 +20,4 @@ export PATH="${PATH}:$USER_PATH/.gem/ruby/3.0.0/bin"
 export PATH="${PATH}:$USER_PATH/.local/bin"
 export PATH="${PATH}:$USER_PATH/repos/flutter/bin"
 export PATH="$HOME/.jenv/bin:$PATH"
+export PATH=$JAVA_HOME/bin:$PATH 
