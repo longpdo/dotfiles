@@ -67,6 +67,7 @@ _BINARIES=(
   trash
   wget
   youtube-dl
+  shellcheck
 )
 for brew in "${_BINARIES[@]}"; do
   _info "installing $brew"
@@ -104,6 +105,7 @@ _DEV_CASKS=(
   visual-studio-code
   webstorm
   docker
+  postman
 )
 for cask in "${_DEV_CASKS[@]}"; do
   _info "installing $cask"
