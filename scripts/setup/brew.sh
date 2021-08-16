@@ -103,6 +103,7 @@ _DEV_CASKS=(
   robo-3t
   visual-studio-code
   webstorm
+  docker
 )
 for cask in "${_DEV_CASKS[@]}"; do
   _info "installing $cask"
