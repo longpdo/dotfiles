@@ -4,7 +4,7 @@
 # > Select files with <Tab>
 # > Confirm with <Enter>
 
-_selected=$(brew search "$1" | tail -n +2 | fzf -m)
+_selected=$(brew formulae | fzf -m)
 
 if [[ $_selected ]]; then
   for brew in $_selected; do
