@@ -90,7 +90,7 @@ for brew in "${_DEV_LIBRARIES[@]}"; do
 done
 
 _info "Installing fonts..."
-brew cask install font-hack-nerd-font || error "failed installing fonts"
+brew install --cask font-hack-nerd-font || error "failed installing fonts"
 
 _info "Installing dev tool casks..."
 _DEV_CASKS=(
@@ -106,7 +106,7 @@ _DEV_CASKS=(
 )
 for cask in "${_DEV_CASKS[@]}"; do
   _info "installing $cask"
-  brew cask install "$cask" || error "failed brew cask install $cask"
+  brew install --cask "$cask" || error "failed brew install --cask $cask"
 done
 
 _info "Installing misc casks..."
@@ -142,7 +142,7 @@ _MISC_CASKS=(
 )
 for cask in "${_MISC_CASKS[@]}"; do
   _info "installing $cask"
-  brew cask install "$cask" || error "failed brew cask install $cask"
+  brew install --cask "$cask" || error "failed brew install --cask $cask"
 done
 
 _info "Installing quick look plugins..."
@@ -156,7 +156,7 @@ _PLUGINS=(
 )
 for cask in "${_PLUGINS[@]}"; do
   _info "installing $cask"
-  brew cask install "$cask" || error "failed brew cask install $cask"
+  brew install --cask "$cask" || error "failed brew install $cask"
 done
 
 ###############################################################################
