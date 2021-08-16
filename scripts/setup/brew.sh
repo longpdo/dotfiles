@@ -21,7 +21,7 @@ _info "Installing antibody..."
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 
 _info "Installing the Tomorrow Night theme for iTerm (opening file)"
-open "./themes/Dracula.itermcolors" && _ok ""
+open "./config/iTerm2/Dracula.itermcolors" && _ok ""
 
 _info "Setting ZSH as the default shell environment"
 sudo sh -c "echo $(which zsh) >> /etc/shells"
