@@ -46,11 +46,5 @@ zstyle ":plugin:history-search-multi-word" clear-on-cancel "no"
 ZSH_TAB_TITLE_ONLY_FOLDER=true
 ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS=true
 
-# Setup wakatime plugin
-ZSH_WAKATIME_PROJECT_DETECTION=true
-
 # Init z.lua
 eval "$(lua ~/z.lua --init zsh enhanced once)"
-
-# Init jenv
-eval "$(jenv init -)"

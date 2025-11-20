@@ -8,8 +8,6 @@ djui/alias-tips
 
 trystan2k/zsh-tab-title
 
-wbingli/zsh-wakatime
-
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions
 
