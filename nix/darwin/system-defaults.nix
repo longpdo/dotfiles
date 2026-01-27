@@ -3,15 +3,6 @@
 {
   # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults
   system.defaults = {
-    "com.apple.menuextra.clock" = {
-      FlashDateSeparators = true;
-      IsAnalog = false;
-      ShowAMPM = true;
-      ShowDate = false;
-      ShowDayOfWeek = true;
-      ShowSeconds = true;
-    };
-
     dock = {
       autohide = true;
       minimize-to-application = true;
@@ -95,6 +86,15 @@
 
     # Arbitrary defaults that nix-darwin doesn't model as typed options
     CustomUserPreferences = {
+      "com.apple.menuextra.clock" = {
+        FlashDateSeparators = 1;
+        IsAnalog = 0;
+        ShowAMPM = 1;
+        ShowDate = 0;
+        ShowDayOfWeek = 1;
+        ShowSeconds = 1;
+      };
+
       NSGlobalDomain = {
         "com.apple.mouse.scaling" = 3;
         "com.apple.trackpad.scaling" = 2;
