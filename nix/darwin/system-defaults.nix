@@ -40,16 +40,11 @@
 
       ShowPathbar = true;                        # show path bar
       ShowStatusBar = true;                      # show status bar
-      ShowSidebar = true;                        # show sidebar
-      ShowPreviewPane = false;                   # hide preview pane
 
       ShowExternalHardDrivesOnDesktop = false;
       ShowHardDrivesOnDesktop = false;
       ShowMountedServersOnDesktop = false;
       ShowRemovableMediaOnDesktop = false;
-
-      OpenWindowForNewRemovableDisk = true;      # open window when USB/drive connects
-      WarnOnEmptyTrash = false;                  # no "are you sure?" on empty trash
 
       _FXShowPosixPathInTitle = true;            # show full POSIX path in title bar
       _FXSortFoldersFirst = true;                # folders before files
@@ -69,8 +64,8 @@
     };
 
     screensaver = {
-      ask-for-password = true;
-      ask-for-password-delay = 0;
+      askForPassword = true;
+      askForPasswordDelay = 0;
     };
 
     NSGlobalDomain = {
@@ -101,6 +96,13 @@
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.trackpad.forceClick" = 1;
         "com.apple.swipescrolldirection" = 0;
+      };
+
+      "com.apple.finder" = {
+        OpenWindowForNewRemovableDisk = 1;      # open window when USB/drive connects
+        ShowSidebar = 1;                        # show sidebar
+        ShowPreviewPane = 0;                    # hide preview pane
+        WarnOnEmptyTrash = 0;                   # no "are you sure?" on empty trash
       };
     };
   };
