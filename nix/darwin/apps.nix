@@ -23,7 +23,6 @@
     bitwarden-desktop         # password manager
     bruno                     # API client 
     firefox-devedition        # browser
-    ghostty                   # terminal
     jetbrains.idea-ultimate   # IDE
     iina                      # media player
     losslesscut-bin           # video editing
@@ -63,6 +62,7 @@
     enable = true;
 
     casks = [
+      "ghostty"
       "microsoft-word"
       "microsoft-excel"
       "microsoft-powerpoint"
