@@ -87,8 +87,8 @@
       AppleInterfaceStyle = "Dark";
       ApplePressAndHoldEnabled = false;     # enable key repeat instead of press-hold popup
       AppleShowScrollBars = "Always";       # show scroll bars always
-      InitialKeyRepeat = 10;                # delay before repeat starts
-      KeyRepeat = 0;                        # extremely fast repeat
+      InitialKeyRepeat = 15;                # delay before repeat starts
+      KeyRepeat = 2;                        # extremely fast repeat
       NSNavPanelExpandedStateForSaveMode = true;   # expanded save dialog
       NSNavPanelExpandedStateForSaveMode2 = true;  # expanded open dialog
 

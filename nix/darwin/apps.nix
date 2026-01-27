@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  # Nix packages (CLI tools, maybe some apps)
+  # Nix packages: https://search.nixos.org/packages?channel=unstable&
   environment.systemPackages = with pkgs; [
 
     # --- CLI tools ---
@@ -20,10 +20,10 @@
     neovim                    # better vim
 
     # --- GUI apps ---
-    alacritty                 # terminal
     bitwarden-desktop         # password manager
     bruno                     # API client 
     firefox-devedition        # browser
+    ghostty                   # terminal
     idea-ultimate             # IDE
     iina                      # media player
     losslesscut-bin           # video editing
