@@ -24,7 +24,7 @@
     bruno                     # API client 
     firefox-devedition        # browser
     ghostty                   # terminal
-    idea-ultimate             # IDE
+    jetbrains.idea-ultimate   # IDE
     iina                      # media player
     losslesscut-bin           # video editing
     mattermost-desktop        # chat client
