@@ -91,14 +91,17 @@
       KeyRepeat = 2;                        # extremely fast repeat
       NSNavPanelExpandedStateForSaveMode = true;   # expanded save dialog
       NSNavPanelExpandedStateForSaveMode2 = true;  # expanded open dialog
+    };
 
-      "com.apple.mouse.scaling" = 3.0;
-      "com.apple.trackpad.scaling" = 2.0;
-      "com.apple.mouse.tapBehavior" = 1;
-      "com.apple.trackpad.forceClick" = 1;
-      "com.apple.swipescrolldirection" = 0;
+    # Arbitrary defaults that nix-darwin doesn't model as typed options
+    CustomUserPreferences = {
+      NSGlobalDomain = {
+        "com.apple.mouse.scaling" = 3;
+        "com.apple.trackpad.scaling" = 2;
+        "com.apple.mouse.tapBehavior" = 1;
+        "com.apple.trackpad.forceClick" = 1;
+        "com.apple.swipescrolldirection" = 0;
+      };
     };
   };
 }
-
-
