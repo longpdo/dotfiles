@@ -35,7 +35,7 @@
       FXEnableExtensionChangeWarning = false;    # don't nag when changing file extensions
 
       FXPreferredViewStyle = "Nlsv";             # default view: list (Nlsv)
-      NewWindowTarget = "Home";                  # new Finder windows target
+      NewWindowTarget = "Other";                  # new Finder windows target
       NewWindowTargetPath = "file:///Users/longdo/Downloads/";
 
       ShowPathbar = true;                        # show path bar
