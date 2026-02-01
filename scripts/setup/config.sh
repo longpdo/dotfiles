@@ -12,37 +12,6 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
-# Alfred 4                                                                    #
-###############################################################################
-
-# TODO change Alfred 3 to 4, or check if this is covered by mackup
-_info "Backing up current Alfred settings and symlinking preferred settings from Dropbox"
-mv ~/Library/Application\ Support/Alfred\ 4 ~/Library/Application\ Support/Alfred\ 4_backup || _error "backing up Alfred settings"
-ln -s ~/Dropbox/Alfred\ 4 ~/Library/Application\ Support/Alfred\ 4 || _error "symlinking Alfred settings"
-
-###############################################################################
-# iTerm 2                                                                     #
-###############################################################################
-_info "Changing iTerm settings..."
-
-_info "Disabling prompt when quitting iTerm"
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false || _error "defaults write com.googlecode.iterm2"
-
-_info "Disabling changing font size with pinch gesture in iTerm"
-defaults write com.googlecode.iterm2 PinchToChangeFontSizeDisabled -bool true || _error "defaults write com.googlecode.iterm2"
-
-_info "Installing color theme for iTerm (opening file)"
-open "$HOME/dev/dotfiles/config/iTerm2/Dracula.itermcolors" && _ok
-
-###############################################################################
-# Tunnelblick                                                                 #
-###############################################################################
-for opvn in "$HOME"/Dropbox/Tunnelblick/*; do
-  _info "Configuring vpn $opvn"
-  open "$opvn"
-done
-
-###############################################################################
 # Visual Studio Code                                                          #
 ###############################################################################
 _info "Setting up Visual Studio Code..."
@@ -87,12 +56,3 @@ for ext in "${CODE_EXTENSIONS[@]}"; do
   _info "installing $ext"
   code --install-extension "$ext" || _error "failed installing $ext"
 done
-
-###############################################################################
-# Kill affected applications                                                  #
-###############################################################################
-_info "Killing affected applications..."
-for app in "Alfred 3" "iTerm" "Visual Studio Code"; do
-	killall "${app}" &> /dev/null
-done
-_ok "Done. Note that some of these changes require a logout/restart to take effect."
