@@ -16,14 +16,11 @@
     dock.persistent-apps = [
       "/System/Library/CoreServices/Finder.app"
 
-      # Nix apps
-      "${pkgs.alacritty}/Applications/Alacritty.app"
-      "${pkgs.firefox-devedition}/Applications/Firefox Developer Edition.app"
-      "${pkgs.obsidian}/Applications/Obsidian.app"
-      "${pkgs.slack}/Applications/Slack.app"
-      "${pkgs.mattermost-desktop}/Applications/Mattermost.app"
-
-      # Homebrew apps
+      "/Applications/Ghostty.app"
+      "/Applications/Firefox Developer Edition.app"
+      "/Applications/Obsidian.app"
+      "/Applications/Slack.app"
+      "/Applications/Mattermost.app"
       "/Applications/Microsoft Teams.app"
       "/Applications/Microsoft Outlook.app"
 

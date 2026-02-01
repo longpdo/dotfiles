@@ -28,16 +28,6 @@ else
     _ok "skipped";
 fi
 
-read -r -p "Do you want to overwrite /etc/hosts with the ad-blocking hosts file from someonewhocares.org [y|N] " response
-if [[ $response =~ (yes|y|Y) ]];then
-		_info "Backing up current /etc/hosts to /etc/hosts.backup"
-		sudo cp /etc/hosts /etc/hosts.backup && _ok "backed up hosts"
-		_info "Overwriting /etc/hosts"
-		sudo cp ./config/hosts /etc/hosts && _ok "overwrote hosts"
-else
-    _ok "skipped";
-fi
-
 _info "Closing any open System Preferences panes..."
 osascript -e 'tell application "System Preferences" to quit'
 
