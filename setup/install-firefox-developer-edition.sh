@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# shellcheck source=lib/common.sh
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/lib/common.sh"
+
+main() {
+  require_macos
+  brew_ensure "firefox@developer-edition" --cask \
+    --app-path "/Applications/Firefox Developer Edition.app"
+  ok "Firefox Developer Edition bootstrap complete"
+}
+
+main "$@"
