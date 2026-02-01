@@ -3,6 +3,7 @@
 .idea
 .vscode
 .env
+.private/
 
 # Thumbnail cache files
 ._*

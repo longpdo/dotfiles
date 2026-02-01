@@ -1,0 +1,39 @@
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[pull]
+	rebase = true 			 # Rebase (instead of merge) on pull
+[push]
+	autoSetupRemote = true   # Automatically set upstream branch on push
+[diff]
+	algorithm = histogram    # Clearer diffs on moved/edited lines
+	colorMoved = plain       # Highlight moved blocks in diffs
+	mnemonicPrefix = true    # More intuitive refs in diff output
+[commit]
+	verbose = true           # Include diff comment in commit message template
+[column]
+	ui = auto 			     # Output in columns when possible
+[branch]
+	sort = -committerdate    # Sort branches by most recent commit first
+[tag]
+	sort = -version:refname  # Sort version numbers as you would expect
+[rerere]
+	enabled = true           # Record and reuse conflict resolutions
+	autoupdate = true        # Apply stored conflict resolutions automatically
+
+[includeIf "gitdir:~/dev/ldo/**"]
+	path = ~/dev/ldo/dotfiles/.private/.gitconfig.ldo
+
+[includeIf "gitdir:~/dev/ado/**"]
+	path = ~/dev/ldo/dotfiles/.private/.gitconfig.ado
+
+[includeIf "gitdir:~/dev/vrp/**"]
+	path = ~/dev/ldo/dotfiles/.private/.gitconfig.vrp
+
+[includeIf "gitdir:~/dev/dat/**"]
+	path = ~/dev/ldo/dotfiles/.private/.gitconfig.dat
+
+[includeIf "gitdir:~/dev/tba/**"]
+	path = ~/dev/ldo/dotfiles/.private/.gitconfig.tba
