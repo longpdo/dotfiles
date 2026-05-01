@@ -118,11 +118,8 @@ jj() {
 }
 
 # CTRL-X
-# Resolve this file's real location (follows symlinks), then derive dotfiles root.
-ALIASES_REALPATH="$(realpath "${(%):-%N}")"
-export DOTFILES_DIR="$(cd "$(dirname "$ALIASES_REALPATH")/../../.." && pwd)"
 fzf-script-launcher() {
-  local SCRIPTS_PATH="$DOTFILES_DIR/scripts"
+  local SCRIPTS_PATH="$HOME/dev/ldo/dotfiles/"
 
   local selected
   selected="$(

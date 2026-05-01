@@ -15,26 +15,25 @@ fi
 # ------------------------------------------------------------
 # Completions (zinit-managed; DO NOT run compinit manually later)
 # ------------------------------------------------------------
-zinit ice wait'0' blockf atinit'zicompinit; zicdreplay'
+zinit ice wait'0' lucid blockf atinit'zicompinit; zicdreplay'
 zinit light zsh-users/zsh-completions
 
-# Completion: Matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # ------------------------------------------------------------
 # Plugins
 # ------------------------------------------------------------
-zinit ice wait'1'
+zinit ice wait'1' lucid
 zinit light zsh-users/zsh-autosuggestions
 
-zinit ice wait'1' atload'
+zinit ice wait'1' lucid atload'
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 '
 zinit light zsh-users/zsh-history-substring-search
 
-zinit ice wait'2'
+zinit ice wait'2' lucid
 zinit light zdharma/fast-syntax-highlighting
 
-zinit ice wait'2'
+zinit ice wait'2' lucid
 zinit light zdharma/history-search-multi-word
